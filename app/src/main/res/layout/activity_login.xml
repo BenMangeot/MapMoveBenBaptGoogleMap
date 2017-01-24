@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.benjamin.mapmove.ConnectionActivity">
+    tools:context="com.example.benjamin.mapmove.LoginActivity">
+
 
     <EditText
         android:layout_width="match_parent"
@@ -14,8 +15,8 @@
         android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/etId"
-        android:hint="Identifiant"
+        android:id="@+id/etPseudo"
+        android:hint="Pseudo"
         android:textAlignment="center"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
@@ -25,8 +26,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_below="@+id/etPassword"
-        android:layout_alignStart="@+id/editText"
+        android:layout_below="@+id/etPseudo"
         android:id="@+id/etPassword"
         android:hint="Mot de passe"
         android:textAlignment="center"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bConnection"
-        android:layout_below="@+id/bConnection"
+        android:layout_below="@+id/etPassword"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:layout_marginBottom="10dp"
@@ -50,22 +50,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvRegister"
-        android:layout_below="@+id/tvRegister"
+        android:layout_below="@+id/bConnection"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textSize="25sp"
         android:textColor="@android:color/background_dark"
-        android:textColorLink="?attr/actionModeSplitBackground" />
-
-    <TextView
-        android:text="Voir la carte"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvMap"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textColor="@android:color/background_dark"
-        android:textColorLink="?attr/actionModeSplitBackground" />
+        android:textColorLink="?attr/actionModeSplitBackground"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </LinearLayout>
