@@ -1,6 +1,8 @@
 package com.example.benjamin.mapmove;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,10 +21,13 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         final EditText etPseudo = (EditText) findViewById(R.id.etPseudo);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
@@ -30,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         final Button bConnection = (Button) findViewById(R.id.bConnection);
 
         final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
+
+
+
 
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
