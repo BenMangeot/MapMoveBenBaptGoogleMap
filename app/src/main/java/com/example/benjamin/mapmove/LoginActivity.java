@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,11 +22,14 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
 
 
@@ -95,4 +99,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
