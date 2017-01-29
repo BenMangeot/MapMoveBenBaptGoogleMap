@@ -1,9 +1,12 @@
 package com.example.benjamin.mapmove;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +24,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
 
@@ -30,53 +32,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private Toolbar toolbar;
 
 
-    private static class LongPressLocationSource implements LocationSource, GoogleMap.OnMapLongClickListener {
-
-        private OnLocationChangedListener mListener;
-
-        /**
-         * Flag to keep track of the activity's lifecycle. This is not strictly necessary in this
-         * case because onMapLongPress events don't occur while the activity containing the map is
-         * paused but is included to demonstrate best practices (e.g., if a background service were
-         * to be used).
-         */
-        private boolean mPaused;
-
-        @Override
-        public void activate(OnLocationChangedListener listener) {
-            mListener = listener;
-        }
-
-        @Override
-        public void deactivate() {
-            mListener = null;
-        }
-
-        @Override
-        public void onMapLongClick(LatLng point) {
-            if (mListener != null && !mPaused) {
-                Location location = new Location("LongPressLocationProvider");
-                location.setLatitude(point.latitude);
-                location.setLongitude(point.longitude);
-                location.setAccuracy(100);
-                mListener.onLocationChanged(location);
-            }
-        }
-
-        public void onPause() {
-            mPaused = true;
-        }
-
-        public void onResume() {
-            mPaused = false;
-        }
-    }
-
-    private LongPressLocationSource mLocationSource;
-
-
     private GoogleMap mMap;
-
 
 
     @Override
@@ -84,7 +40,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        mLocationSource = new LongPressLocationSource();
         toolbar = (Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(toolbar);
 
@@ -102,21 +57,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mLocationSource.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mLocationSource.onPause();
-    }
 
     /**
      * Manipulates the map once available.
@@ -130,12 +72,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setOnMapLongClickListener(mLocationSource);
-        mMap.setLocationSource(mLocationSource);
+
+
         // Add a marker in Sydney and move the camera
         LatLng hei = new LatLng(50.633804, 3.045090);
         mMap.addMarker(new MarkerOptions().position(hei).title("Ecole hei"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(hei));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hei, 10));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mMap.setMyLocationEnabled(true);
 
     }
