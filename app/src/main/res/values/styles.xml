@@ -1,11 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@android:color/holo_blue_dark</item>
+        <item name="colorPrimaryDark">@android:color/holo_purple</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorForeground">@color/common_google_signin_btn_text_dark_default</item>
+        <item name="android:textColorPrimary">@color/common_google_signin_btn_text_dark</item>
     </style>
 
 </resources>
