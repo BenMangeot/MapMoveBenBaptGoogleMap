@@ -85,8 +85,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng prepa = new LatLng(50.628483, 3.046960);
         mMap.addMarker(new MarkerOptions().position(hei).title("Ecole hei").icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder_black)));
         mMap.addMarker(new MarkerOptions().position(maisonBen).title("chez ben").icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder_violet)));
-        mMap.addMarker(new MarkerOptions().position(maisonBat).title("chez bat").icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder_red)));
-        mMap.addMarker(new MarkerOptions().position(prepa).title("prepa").icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder_blue)));
+        mMap.addMarker(new MarkerOptions().position(maisonBat).title("chez bat").icon(BitmapDescriptorFactory.fromResource(R.drawable.placehold_redrgrand)));
+        mMap.addMarker(new MarkerOptions().position(prepa).title("prepa"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hei, 10));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

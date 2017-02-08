@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "615753042420",
+    "firebase_url": "https://project-166158956476807281.firebaseio.com",
+    "project_id": "project-166158956476807281",
+    "storage_bucket": "project-166158956476807281.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615753042420:android:230d4906778712a4",
+        "android_client_info": {
+          "package_name": "com.example.benjamin.mapmove"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615753042420-b3h6su047ed8vf1j8qvidolkl3vsf34m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfBxJXOkjDJ6sBtwCZvBRX_f8q9qvilzo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615753042420-b3h6su047ed8vf1j8qvidolkl3vsf34m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
