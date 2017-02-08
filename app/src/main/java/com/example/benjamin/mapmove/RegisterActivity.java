@@ -58,38 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
                 final String mail = etMail.getText().toString();
                 final String password = etPassword.getText().toString();
 
-                Response.Listener<String> reponseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    RegisterActivity.this.startActivity(loginIntent);
-                                } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                    builder.setMessage("Register Failed")
-                                            .setNegativeButton("Retry", null)
-                                            .create()
-                                            .show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
 
 
 
-
-
-
-                };
-
-
-                RegisterRequest registerRequest = new RegisterRequest(pseudo, mail, password, reponseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
             }
         });
     }

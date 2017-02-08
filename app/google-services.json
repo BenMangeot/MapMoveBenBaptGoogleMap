@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "615753042420",
-    "firebase_url": "https://project-166158956476807281.firebaseio.com",
-    "project_id": "project-166158956476807281",
-    "storage_bucket": "project-166158956476807281.appspot.com"
+    "project_number": "152884950733",
+    "firebase_url": "https://project--7669949180488281577.firebaseio.com",
+    "project_id": "project--7669949180488281577",
+    "storage_bucket": "project--7669949180488281577.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615753042420:android:230d4906778712a4",
+        "mobilesdk_app_id": "1:152884950733:android:230d4906778712a4",
         "android_client_info": {
           "package_name": "com.example.benjamin.mapmove"
         }
       },
       "oauth_client": [
         {
-          "client_id": "615753042420-b3h6su047ed8vf1j8qvidolkl3vsf34m.apps.googleusercontent.com",
+          "client_id": "152884950733-cpb3skaa3mn4uhl68arn74c2nbevp7sa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfBxJXOkjDJ6sBtwCZvBRX_f8q9qvilzo"
+          "current_key": "AIzaSyAaxnRu2O3vyuYZMZLGg7biNnE-2FvDGFg"
         }
       ],
       "services": {
@@ -32,7 +32,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "615753042420-b3h6su047ed8vf1j8qvidolkl3vsf34m.apps.googleusercontent.com",
+              "client_id": "152884950733-cpb3skaa3mn4uhl68arn74c2nbevp7sa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
