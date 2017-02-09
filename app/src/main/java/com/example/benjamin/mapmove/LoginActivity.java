@@ -152,6 +152,7 @@ public class LoginActivity extends BaseActivity implements
                             mStatusTextView.setText(R.string.auth_failed);
                         }
                         hideProgressDialog();
+
                         // [END_EXCLUDE]
                     }
                 });
