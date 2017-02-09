@@ -3,6 +3,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey_100"
     android:orientation="vertical"
     android:weightSum="4">
 
@@ -11,26 +12,33 @@
         android:layout_height="0dp"
         android:layout_weight="3"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#438DCC">
 
-
+        <ImageView
+            android:id="@+id/icon"
+            style="@style/ThemeOverlay.FirebaseIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/desc_firebase_lockup"
+            android:src="@mipmap/mapmovelogo"/>
 
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="emailpassword_title_text" />
+            android:layout_marginBottom="@dimen/title_bottom_margin"
+            android:text="@string/emailpassword_title_text"
+            android:theme="@style/ThemeOverlay.MyTitleText" />
 
         <TextView
             android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="signed_out" />
+            style="@style/ThemeOverlay.MyTextDetail"
+            android:text="@string/signed_out" />
 
         <TextView
             android:id="@+id/detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ThemeOverlay.MyTextDetail"
             tools:text="Firebase User ID: 123456789abc" />
 
     </LinearLayout>
@@ -40,6 +48,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/grey_300"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -55,7 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="hint_email"
+                android:hint="@string/hint_email"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -63,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="hint_password"
+                android:hint="@string/hint_password"
                 android:inputType="textPassword" />
         </LinearLayout>
 
@@ -81,14 +90,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="sign_in" />
+                android:text="@string/sign_in"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
                 android:id="@+id/email_create_account_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="create_account" />
+                android:text="@string/create_account"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,14 +118,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:text="sign_out" />
+                android:text="@string/sign_out"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
                 android:id="@+id/verify_email_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:text="verify_email" />
+                android:text="@string/verify_email"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
 
         </LinearLayout>
 
