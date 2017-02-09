@@ -27,7 +27,7 @@ public class LoginActivity extends BaseActivity implements
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
-    // [END declare_auth]
+    // [END declare_auth]rr
 
     // [START declare_auth_listener]
     private FirebaseAuth.AuthStateListener mAuthListener;
