@@ -220,7 +220,7 @@ public class LoginActivity extends BaseActivity implements
         hideProgressDialog();
         if (user != null) {
             mStatusTextView.setText("je sais pas ce que tu veux mamene");
-            mDetailTextView.setText("a voir");
+            mDetailTextView.setText("a voir !");
 
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
