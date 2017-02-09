@@ -1,5 +1,6 @@
 package com.example.benjamin.mapmove;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends BaseActivity implements
+
         View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
@@ -115,6 +117,11 @@ public class LoginActivity extends BaseActivity implements
                                     Toast.LENGTH_SHORT).show();
                         }
 
+                        if(task.isSuccessful()){
+                            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                            startActivity(intent);
+                        }
+
                         // [START_EXCLUDE]
                         hideProgressDialog();
                         // [END_EXCLUDE]
@@ -151,6 +158,12 @@ public class LoginActivity extends BaseActivity implements
                         if (!task.isSuccessful()) {
                             mStatusTextView.setText("auth_failed");
                         }
+
+                        if(task.isSuccessful()){
+                            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                            startActivity(intent);
+                        }
+
                         hideProgressDialog();
                         // [END_EXCLUDE]
                     }
@@ -158,7 +171,7 @@ public class LoginActivity extends BaseActivity implements
         // [END sign_in_with_email]
     }
 
-    private void signOut() {
+    public void signOut() {
         mAuth.signOut();
         updateUI(null);
     }
@@ -216,7 +229,7 @@ public class LoginActivity extends BaseActivity implements
         return valid;
     }
 
-    private void updateUI(FirebaseUser user) {
+    public void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
             mStatusTextView.setText("je sais pas ce que tu veux mamene");
