@@ -25,6 +25,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.benjamin.mapmove.Instance.BddService;
+import com.example.benjamin.mapmove.Instance.Event;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
@@ -35,19 +37,35 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    // [Start decla]
     private GoogleMap mMap;
-
     private FirebaseAuth mAuth;
-    // [END declare_auth]
+    private DatabaseReference mDatabase;
+    public List<Event> events = new ArrayList<Event>();
+
+
+    // [END decla]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,41 +87,36 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        // [START initialize_auth]
-        mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
-
+        events = BddService.getInstance().getAllEvents();
+        System.out.println("GRAAL  "+events.size());
 
 
     }
+
 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
 
 
-        // Add a marker in Sydney and move the camera
-        LatLng hei = new LatLng(50.633804, 3.045090);
-        LatLng maisonBen = new LatLng(50.632989, 3.042298);
-        LatLng maisonBat = new LatLng(50.629728, 3.043672);
-        LatLng prepa = new LatLng(50.628483, 3.046960);
-        mMap.addMarker(new MarkerOptions().position(hei).title("Ecole hei").icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder_black)));
-        mMap.addMarker(new MarkerOptions().position(maisonBen).title("chez ben").icon(BitmapDescriptorFactory.fromResource(R.drawable.placeholder_violet)));
-        mMap.addMarker(new MarkerOptions().position(maisonBat).title("chez bat").icon(BitmapDescriptorFactory.fromResource(R.drawable.placehold_redrgrand)));
-        mMap.addMarker(new MarkerOptions().position(prepa).title("prepa"));
-        mMap.addMarker(new MarkerOptions().position(maisonBat).title("chez bat").icon(BitmapDescriptorFactory.fromResource(R.drawable.placehold_redrgrand)));
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        // [START initialize_auth]
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
         mMap.setMyLocationEnabled(true);
-
-
-        mMap.addMarker(new MarkerOptions().position(maisonBat).title("chez bat").icon(BitmapDescriptorFactory.fromResource(R.drawable.placehold_redrgrand)));
+        System.out.println("DANS ON MAP READY");
 
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -131,6 +144,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.nav_map) {
             // Handle the camera action
         } else if (id == R.id.nav_account) {
+
 
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
