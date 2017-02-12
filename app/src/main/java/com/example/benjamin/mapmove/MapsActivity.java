@@ -136,14 +136,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
             signOut();
         } else if (id == R.id.nav_manage) {
-
+            startActivity(new Intent(this, SettingsActivity.class));
+            finish();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
-        }else if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -15,13 +15,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword;
+    private EditText inputEmail, inputPassword, inputpseudo;
     private Button btnSignIn, btnSignUp, btnResetPassword;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
+    private DatabaseReference mdatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +39,11 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
+        inputpseudo = (EditText) findViewById(R.id.pseudo) ;
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+
+        mdatabase = FirebaseDatabase.getInstance().getReference();
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +96,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
+
+                                    createNewUser(task.getResult().getUser());
                                     startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
                                     finish();
                                 }
@@ -98,6 +107,18 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void createNewUser(FirebaseUser userFromRegistration) {
+        String username = inputpseudo.getText().toString().trim();
+        String email = userFromRegistration.getEmail();
+        String userId = userFromRegistration.getUid();
+
+        User user = new User(username, email);
+
+        mdatabase.child("users").child(userId).setValue(user);
+    }
+
+
 
     @Override
     protected void onResume() {

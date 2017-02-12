@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -29,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseAuth auth;
+    private DatabaseReference mdatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
+        mdatabase = FirebaseDatabase.getInstance().getReference();
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -115,6 +122,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         Toast.makeText(SettingsActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
                                         signOut();
                                         progressBar.setVisibility(View.GONE);
+                                        updateEmail(user);
                                     } else {
                                         Toast.makeText(SettingsActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -226,6 +234,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         startActivity(new Intent(SettingsActivity.this, RegisterActivity.class));
                                         finish();
                                         progressBar.setVisibility(View.GONE);
+                                        deleteUser(user);
                                     } else {
                                         Toast.makeText(SettingsActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.GONE);
@@ -245,10 +254,27 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    private void deleteUser(FirebaseUser userFromDelete) {
+        String userId = userFromDelete.getUid();
+
+        mdatabase.child("users").child(userId).removeValue();
+    }
+
+    private void updateEmail(FirebaseUser userFromUpdateEmail) {
+        final String userId = userFromUpdateEmail.getUid();
+        final String newemail = newEmail.getText().toString().trim();
+
+        mdatabase.child("users").child(userId).child("email").setValue(newemail);
+
+
+    }
+
     //sign out method
     public void signOut() {
         auth.signOut();
     }
+
+
 
     @Override
     protected void onResume() {
