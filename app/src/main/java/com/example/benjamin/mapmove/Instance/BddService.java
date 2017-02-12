@@ -3,6 +3,8 @@ package com.example.benjamin.mapmove.Instance;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,6 +64,7 @@ public class BddService {
 
                 System.out.println("On data change "+events.size());
 
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -69,7 +72,11 @@ public class BddService {
             }
         });
 
-        System.out.println("Taille juste avant le return  "+events.size());
+        /** Event event1 = new Event (50.629728,3.043672);
+        Event event2 = new Event (50.632989,3.042298);
+        events.add(event1);
+        events.add(event2); */
+
         return events;
     }
 

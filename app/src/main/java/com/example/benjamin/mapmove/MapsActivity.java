@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -23,10 +24,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +76,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        events = BddService.getInstance().getAllEvents();
-        System.out.println("GRAAL  "+events.size());
-
 
     }
 
@@ -82,17 +84,43 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        System.out.println("****    DANS ON MAP READY   ****");
+
+
+        mDatabase.child("events").addValueEventListener(new ValueEventListener() {
+
+            public void onDataChange(DataSnapshot dataSnapshot){
+
+                Log.e("Count " ,""+dataSnapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Event event = postSnapshot.getValue(Event.class);
+                    System.out.println("dans le for "+event.getLat());
+
+                    LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
+                    mMap.addMarker(new MarkerOptions().position(posEvent).title("bat"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 10));
+
+                }
+
+                System.out.println("On data change "+events.size());
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
         mMap = googleMap;
 
-        // [START initialize_auth]
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
 
-        LatLng bat =  new LatLng(50.629728, 3.043672);
+
+   /*     LatLng bat =  new LatLng(50.629728, 3.043672);
         mMap.addMarker(new MarkerOptions().position(bat).title("bat"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bat, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bat, 10)); */
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -100,7 +128,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
-        System.out.println("DANS ON MAP READY");
+
+
+
 
 
     }
