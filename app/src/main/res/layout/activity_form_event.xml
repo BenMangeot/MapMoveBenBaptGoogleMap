@@ -5,7 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.example.benjamin.mapmove.FormEvent">
+    tools:context="com.example.benjamin.mapmove.FormEvent"
+    tools:showIn="@layout/app_bar_drawer">
 
     <EditText
         android:layout_width="match_parent"

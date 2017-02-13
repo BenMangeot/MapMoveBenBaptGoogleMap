@@ -38,6 +38,7 @@ public class FormEvent extends AppCompatActivity {
         etLatitude = (EditText) findViewById(R.id.etLatitude);
         etLongitude = (EditText) findViewById(R.id.etLongitude);
         bCreerEvent = (Button) findViewById(R.id.bCreerEvent);
+        
 
         bCreerEvent.setOnClickListener(new View.OnClickListener() {
             @Override
