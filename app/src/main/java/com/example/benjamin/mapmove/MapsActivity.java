@@ -47,7 +47,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     public List<Event> events = new ArrayList<Event>();
-    private EditText username;
 
 
     // [END decla]
@@ -83,6 +82,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(user.getUid()).child("email").addValueEventListener(new ValueEventListener() {
+
+            public void onDataChange(DataSnapshot dataSnapshot){
+
+                String name = dataSnapshot.getValue().toString();
+
+                View v = navigationView.getHeaderView(0);
+                TextView avatarContainer = (TextView ) v.findViewById(R.id.tvEmail);
+                avatarContainer.setText(name);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
         mDatabase.child("users").child(user.getUid()).child("username").addValueEventListener(new ValueEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot){
