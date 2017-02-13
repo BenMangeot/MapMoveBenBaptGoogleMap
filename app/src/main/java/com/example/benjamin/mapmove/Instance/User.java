@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.Instance;
 
 /**
  * Created by Benjamin on 10/02/2017.

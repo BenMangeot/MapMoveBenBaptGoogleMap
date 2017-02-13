@@ -17,15 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.benjamin.mapmove.Instance.BddService;
 import com.example.benjamin.mapmove.Instance.Event;
+import com.example.benjamin.mapmove.Instance.MarkerFunction;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -93,17 +91,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 Log.e("Count " ,""+dataSnapshot.getChildrenCount());
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
                     Event event = postSnapshot.getValue(Event.class);
-                    System.out.println("dans le for "+event.getLat());
 
-                    LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
-                    mMap.addMarker(new MarkerOptions().position(posEvent).title("bat"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 10));
-
+                    System.out.println(event.getLat()+" Bien remis comme avant ");
+                    MarkerFunction.getInstance().afficherMarker(mMap, event);
                 }
-
-                System.out.println("On data change "+events.size());
-
 
             }
             @Override
@@ -112,15 +105,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        LatLng posEvent =  new LatLng(50.629728, 3.043672);
+
+
+
         mMap = googleMap;
-
-
-
-
-
-   /*     LatLng bat =  new LatLng(50.629728, 3.043672);
-        mMap.addMarker(new MarkerOptions().position(bat).title("bat"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bat, 10)); */
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 10));
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -128,11 +118,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         mMap.setMyLocationEnabled(true);
-
-
-
-
-
     }
 
 
@@ -172,7 +157,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             startActivity(new Intent(this, SettingsActivity.class));
             finish();
         } else if (id == R.id.nav_share) {
-
+            startActivity(new Intent(this, FormEvent.class));
+            finish();
         } else if (id == R.id.nav_send) {
 
         }
