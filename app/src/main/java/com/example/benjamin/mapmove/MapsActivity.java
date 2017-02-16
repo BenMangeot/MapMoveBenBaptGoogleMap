@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
 import com.example.benjamin.mapmove.Instance.MarkerFunction;
+import com.example.benjamin.mapmove.Instance.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -82,15 +83,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(user.getUid()).child("email").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot){
 
-                String name = dataSnapshot.getValue().toString();
+                User userCo = dataSnapshot.getValue(User.class);
 
                 View v = navigationView.getHeaderView(0);
                 TextView avatarContainer = (TextView ) v.findViewById(R.id.tvEmail);
-                avatarContainer.setText(name);
+                avatarContainer.setText(userCo.getEmail());
+
+                TextView avatarContainerUserName = (TextView) v.findViewById(R.id.tvUsername);
+                avatarContainerUserName.setText(userCo.getUsername());
 
             }
             @Override
@@ -99,22 +103,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        mDatabase.child("users").child(user.getUid()).child("username").addValueEventListener(new ValueEventListener() {
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-
-                String name = dataSnapshot.getValue().toString();
-
-                View v = navigationView.getHeaderView(0);
-                TextView avatarContainer = (TextView ) v.findViewById(R.id.tvUsername);
-                avatarContainer.setText(name);
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
     }
 
 
@@ -150,7 +138,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         mMap = googleMap;
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 12));
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
