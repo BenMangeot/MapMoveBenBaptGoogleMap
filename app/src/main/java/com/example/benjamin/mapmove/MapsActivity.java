@@ -188,7 +188,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             startActivity(new Intent(this, SettingsActivity.class));
             finish();
         } else if (id == R.id.nav_share) {
-            startActivity(new Intent(this, FormEvent.class));
+            startActivity(new Intent(this, CreateEventWithAddress.class));
             finish();
         } else if (id == R.id.nav_send) {
 
