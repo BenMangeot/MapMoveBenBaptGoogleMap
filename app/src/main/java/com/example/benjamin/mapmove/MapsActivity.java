@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -47,6 +48,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     public List<Event> events = new ArrayList<Event>();
+    private FirebaseAuth.AuthStateListener authListener;
 
 
     // [END decla]
@@ -77,6 +79,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // user auth state is changed - user is null
+                    // launch login activity
+                    startActivity(new Intent(MapsActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -185,10 +200,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             signOut();
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(this, SettingsActivity.class));
-            finish();
+
         } else if (id == R.id.nav_share) {
             startActivity(new Intent(this, CreateEventWithAddress.class));
-            finish();
+
         } else if (id == R.id.nav_send) {
 
         }
@@ -202,6 +217,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mAuth.signOut();
         Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
