@@ -1,18 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FormEvent"
-    android:id="@+id/formEvent"
-    tools:showIn="@layout/app_bar_drawer"
-    android:orientation="horizontal"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    <include layout="@layout/activity_drawer"
-        />
-
-
+    android:layout_marginTop="60dp"
+    tools:context="com.example.benjamin.mapmove.FormulaireEventFragment"
+    android:orientation="vertical">
 
     <EditText
         android:layout_width="match_parent"
@@ -45,9 +37,8 @@
         android:text="Créer l'evenement"
         android:layout_width="373dp"
         android:layout_height="wrap_content"
-        android:id="@+id/bCreerEvent" />
-</RelativeLayout>
+        android:id="@+id/bCreerEvent"
+        android:onClick="buttonClick"
+        />
 
-
-
-
+</LinearLayout>
