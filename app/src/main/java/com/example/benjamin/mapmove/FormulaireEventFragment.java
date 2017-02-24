@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,12 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URI;
@@ -42,9 +45,11 @@ public class FormulaireEventFragment extends Fragment {
     private Button bCreerEvent, bSelecImage;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
+    private Uri uriEvent =  null;
     ProgressBar progressBar;
     TextView infoText;
     private static final int GALLERY_INTENT = 2;
+
 
 
     @Nullable
@@ -81,13 +86,13 @@ public class FormulaireEventFragment extends Fragment {
                                            @Override
                                            public void onClick(View view) {
                                                new CreateEvent().execute();
-                                               Intent intent = new Intent(getActivity(), MapsActivity.class);
                                                Toast.makeText(getActivity(),"L'évenement a bien été crée !",Toast.LENGTH_SHORT).show();
 
-                                               startActivity(intent);
                                            }
                                        }
         );
+
+
 
         return view;
     }
@@ -95,7 +100,6 @@ public class FormulaireEventFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
     }
 
@@ -112,7 +116,11 @@ public class FormulaireEventFragment extends Fragment {
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(getActivity(), "Upload Done"; Toast.LENGTH_LONG);
+                    uriEvent = taskSnapshot.getDownloadUrl();
+
+                    //Picasso.with(getActivity()).load(downloadUri).fit().centerCrop().into(mImageView);
+
+                    Toast.makeText(getActivity(), "Upload Done", Toast.LENGTH_LONG);
                 }
             });
         }
@@ -176,9 +184,13 @@ public class FormulaireEventFragment extends Fragment {
                 String nameEvent = etNameEvent.getText().toString();
 
                 Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent);
-
+                if(uriEvent != null){
+                    event.setUriEvent(uriEvent.toString());
+                }
                 mDatabase.push().setValue(event);
             }
         }
     }
+
+
 }

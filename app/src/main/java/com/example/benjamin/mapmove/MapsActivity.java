@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -46,10 +47,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private MapFragment mMapFragment;
-    private Button bFormEvent;
     private FragmentTransaction fragmentTransaction;
-
-    // [END decla]
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +91,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
-
     }
 
 
@@ -117,15 +113,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(Marker marker) {
-                            Event event = (Event) marker.getTag();
-                            Toast.makeText(MapsActivity.this, event.getNameEvent(),
-                                    Toast.LENGTH_LONG).show();
+                     Event eventToDetail = (Event) marker.getTag();
+
                             marker.showInfoWindow();
 
                             return true;
                         }
                     });
 
+                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                        @Override
+                        public void onInfoWindowClick(Marker marker) {
+                            Event eventToDetail = (Event) marker.getTag();
+                            Toast.makeText(MapsActivity.this, eventToDetail.getNameEvent(),
+                                    Toast.LENGTH_LONG).show();
+                            getFragmentManager().beginTransaction().remove(mMapFragment).commit();
+                            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                            Fragment fragment = DetailEventFragment.newInstance(eventToDetail);
+                            ft.replace(R.id.fragment_container, fragment);
+                            ft.commit();
+                        }
+                    });
                 }
 
             }
@@ -221,6 +230,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fragmentTransaction.commit();
     }
 
+    public void onButtonClicked(View view) {
+        Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
 }
 
 
