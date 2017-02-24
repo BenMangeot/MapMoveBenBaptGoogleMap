@@ -3,6 +3,7 @@ package com.example.benjamin.mapmove;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,15 +19,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
 import static com.android.volley.VolleyLog.TAG;
 
 
@@ -94,8 +99,33 @@ public class FormulaireEventFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+
+            Uri uri = data.getData();
+
+            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
+
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getActivity(), "Upload Done"; Toast.LENGTH_LONG);
+                }
+            });
+        }
+
+    }
+
+
+
+
+
 
     /** Classe qui nous permet de créer un nouvel evenement dans la base de données */
+
     class CreateEvent extends AsyncTask<Void, Void, Address> {
 
         String errorMessage = "";
