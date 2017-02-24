@@ -21,12 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
-import com.example.benjamin.mapmove.Instance.MarkerFunction;
+import com.example.benjamin.mapmove.MapsHelper.MyInfoWindowMarker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,9 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-
-
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener{
 
 
     // [Start decla]
@@ -47,6 +47,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private DatabaseReference mDatabase;
     private MapFragment mMapFragment;
     private Button bFormEvent;
+    private FragmentTransaction fragmentTransaction;
 
     // [END decla]
 
@@ -66,14 +67,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //Set the fragment initially
-        mMapFragment = MapFragment.newInstance();
-        FragmentTransaction fragmentTransaction =
-                getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, mMapFragment);
-        fragmentTransaction.commit();
-
-        mMapFragment.getMapAsync(this);
+        /** Initialisation du fragment */
+        setFragToMaps();
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -81,6 +76,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        /** Initialisation du set Text dans le menu */
         mDatabase.child("users").child(user.getUid()).child("username").addValueEventListener(new ValueEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot){
@@ -90,13 +87,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 View v = navigationView.getHeaderView(0);
                 TextView avatarContainer = (TextView ) v.findViewById(R.id.tvUsername);
                 avatarContainer.setText(name);
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+
     }
 
 
@@ -109,8 +107,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onDataChange(DataSnapshot dataSnapshot){
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
+                    /** On crée un marqueur par event */
                     Event event = postSnapshot.getValue(Event.class);
-                    MarkerFunction.getInstance().afficherMarker(mMap, event);
+                    LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
+                    Marker marker = mMap.addMarker(new MarkerOptions().position(posEvent).title(event.getNameEvent()));
+                    marker.setTag(event);
+
+                    mMap.setInfoWindowAdapter(new MyInfoWindowMarker(getLayoutInflater()));
+                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+                            Event event = (Event) marker.getTag();
+                            Toast.makeText(MapsActivity.this, event.getNameEvent(),
+                                    Toast.LENGTH_LONG).show();
+                            marker.showInfoWindow();
+
+                            return true;
+                        }
+                    });
+
                 }
 
             }
@@ -129,6 +144,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mMap.setMyLocationEnabled(true);
     }
+
 
 
 
@@ -154,18 +170,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            Intent intent = new Intent(this, MapsActivity.class);
-            startActivity(intent);
+            setFragToMaps();
         } else if (id == R.id.nav_account) {
             
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
             signOut();
         } else if (id == R.id.nav_manage) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            finish();
+            setFragToSettings();
         } else if (id == R.id.nav_creer_event) {
-            chgFragtFormEvent();
+            setFragToFormEvent();
         } else if (id == R.id.nav_send) {
 
         }
@@ -179,10 +193,28 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
         startActivity(intent);
     }
+
+    private void setFragToMaps(){
+        mMapFragment = MapFragment.newInstance();
+        fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mMapFragment);
+        fragmentTransaction.commit();
+
+        mMapFragment.getMapAsync(this);
+    }
     
-    private void chgFragtFormEvent(){
+    private void setFragToFormEvent(){
         getFragmentManager().beginTransaction().remove(mMapFragment).commit();
         FormulaireEventFragment fragment = new FormulaireEventFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void setFragToSettings(){
+        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
+        SettingsFragment fragment = new SettingsFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

@@ -42,9 +42,6 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".FormEvent" />
-        <activity android:name=".FormEventFragment" />
-        <activity android:name=".FormulaireEventActivity" />
         <activity android:name=".FormulaireEventFragment"></activity>
     </application>
 

@@ -16,29 +16,38 @@
         android:hint="Nom de l'evenement" />
 
     <EditText
+        android:id="@+id/addressEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberSigned"
-        android:ems="10"
-        android:id="@+id/etLatitude"
-        android:hint="Latitude"
+        android:minLines="4"
+        android:hint="Address"
         android:textAlignment="center" />
 
-    <EditText
+    <Button
+        android:text="Selectionner l'image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberSigned"
-        android:ems="10"
-        android:id="@+id/etLongitude"
-        android:hint="Longitude"
-        android:textAlignment="center" />
+        android:id="@+id/bSelecImage" />
 
     <Button
         android:text="Créer l'evenement"
         android:layout_width="373dp"
         android:layout_height="wrap_content"
         android:id="@+id/bCreerEvent"
-        android:onClick="buttonClick"
-        />
+        android:onClick="onButtonClicked"/>
+
+    <TextView
+        android:id="@+id/infoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/actionButton"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/actionButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
 
 </LinearLayout>
