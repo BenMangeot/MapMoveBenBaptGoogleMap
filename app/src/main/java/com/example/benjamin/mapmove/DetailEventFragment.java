@@ -46,7 +46,7 @@ public class DetailEventFragment extends Fragment {
         tvNameEvent.setText(event.getNameEvent());
 
         Picasso.with(getActivity()).load(event.getUriEvent().toString()).into(ivEvent);
-
+        System.out.println("push");
 
         return view;
 
