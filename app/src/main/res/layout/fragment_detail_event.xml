@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.benjamin.mapmove.DetailEventFragment"
-    android:layout_marginTop="60dp"
+    android:layout_marginTop="80dp"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -18,10 +18,20 @@
         android:textSize="24sp"
         android:textStyle="normal|bold" />
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvDescription"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="normal|bold" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/common_full_open_on_phone"
         android:id="@+id/ivEvent"
-        android:layout_weight="0.86" />
+        android:layout_weight="0.27" />
+
 </LinearLayout>

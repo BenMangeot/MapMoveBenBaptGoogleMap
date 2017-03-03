@@ -29,7 +29,7 @@ public class MyInfoWindowMarker implements GoogleMap.InfoWindowAdapter {
         TextView tvTitle=(TextView)myContentsView.findViewById(R.id.titleEvent);
         TextView tvDescription=(TextView)myContentsView.findViewById(R.id.coucou);
         tvTitle.setText(event.getNameEvent());
-        tvDescription.setText("Coucou");
+        tvDescription.setText(event.getDescriptionEvent());
 
         return(myContentsView);
     }

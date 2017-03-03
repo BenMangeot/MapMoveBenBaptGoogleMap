@@ -113,8 +113,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(Marker marker) {
-                     Event eventToDetail = (Event) marker.getTag();
-
                             marker.showInfoWindow();
 
                             return true;
@@ -181,7 +179,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.nav_map) {
             setFragToMaps();
         } else if (id == R.id.nav_account) {
-            
+            Intent intent = new Intent(MapsActivity.this, ListEventsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
             signOut();

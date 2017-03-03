@@ -1,5 +1,6 @@
 package com.example.benjamin.mapmove;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -40,14 +43,15 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class FormulaireEventFragment extends Fragment {
 
-    private EditText etNameEvent;
-    private EditText etAdress;
+    private EditText etNameEvent, etAddress, etDescription;
     private Button bCreerEvent, bSelecImage;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
     private Uri uriEvent =  null;
     ProgressBar progressBar;
     TextView infoText;
+    private MapFragment mMapFragment;
+    private android.support.v4.app.FragmentTransaction fragmentTransaction;
     private static final int GALLERY_INTENT = 2;
 
 
@@ -62,7 +66,8 @@ public class FormulaireEventFragment extends Fragment {
         mStorage = FirebaseStorage.getInstance().getReference();
 
         etNameEvent = (EditText) view.findViewById(R.id.etNameEvent);
-        etAdress = (EditText) view.findViewById(R.id.addressEdit);
+        etDescription = (EditText) view.findViewById(R.id.etDescription);
+        etAddress = (EditText) view.findViewById(R.id.addressEdit);
         bCreerEvent = (Button) view.findViewById(R.id.bCreerEvent);
         bSelecImage = (Button) view.findViewById(R.id.bSelecImage);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
@@ -87,7 +92,7 @@ public class FormulaireEventFragment extends Fragment {
                                            public void onClick(View view) {
                                                new CreateEvent().execute();
                                                Toast.makeText(getActivity(),"L'évenement a bien été crée !",Toast.LENGTH_SHORT).show();
-
+                                               mMapFragment = MapFragment.newInstance();
                                            }
                                        }
         );
@@ -149,7 +154,7 @@ public class FormulaireEventFragment extends Fragment {
             Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
             List<Address> addresses = null;
 
-            String name =etAdress.getText().toString().trim();
+            String name =etAddress.getText().toString().trim();
             try {
                 addresses = geocoder.getFromLocationName(name, 1);
             } catch (IOException e) {
@@ -182,8 +187,9 @@ public class FormulaireEventFragment extends Fragment {
                         "Address: " + addressName);
 
                 String nameEvent = etNameEvent.getText().toString();
+                String descriptionEvent = etDescription.getText().toString();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent);
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }

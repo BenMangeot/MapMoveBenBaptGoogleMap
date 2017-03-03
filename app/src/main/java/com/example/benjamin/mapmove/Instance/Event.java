@@ -20,8 +20,15 @@ public class Event implements Serializable {
     public Double lg;
     public String nameEvent;
     public String uriEvent = null;
+    public String descriptionEvent;
 
+    public String getDescriptionEvent() {
+        return descriptionEvent;
+    }
 
+    public void setDescriptionEvent(String descriptionEvent) {
+        this.descriptionEvent = descriptionEvent;
+    }
 
     public Double getLat() {
         return lat;
@@ -38,10 +45,11 @@ public class Event implements Serializable {
     public Event(){ // Obligatoir pr firebase même si grisé/non-utilisé
     }
 
-    public Event(Double lat, Double lg, String nameEvent){
+    public Event(Double lat, Double lg, String nameEvent, String descriptionEvent){
         this.lat = lat;
         this.lg = lg;
         this.nameEvent=nameEvent;
+        this.descriptionEvent=descriptionEvent;
     }
 
     public String getUriEvent() {

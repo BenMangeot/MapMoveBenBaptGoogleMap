@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:layout_marginTop="60dp"
     tools:context="com.example.benjamin.mapmove.FormulaireEventFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <EditText
         android:layout_width="match_parent"
@@ -22,6 +23,16 @@
         android:minLines="4"
         android:hint="Address"
         android:textAlignment="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Description"
+        android:ems="10"
+        android:id="@+id/etDescription"
+        android:textAlignment="center"
+        android:layout_weight="0.36" />
 
     <Button
         android:text="Selectionner l'image"

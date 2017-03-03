@@ -21,7 +21,7 @@ public class DetailEventFragment extends Fragment {
 
     private static final String DESCRIBABLE_KEY = "describable_key";
     private Event event;
-    private TextView tvNameEvent;
+    private TextView tvNameEvent, tvDescription;
     private ImageView ivEvent;
 
     private DatabaseReference mDatabase;
@@ -44,6 +44,9 @@ public class DetailEventFragment extends Fragment {
         tvNameEvent = (TextView) view.findViewById(R.id.tvTitreEvent);
         ivEvent =(ImageView) view.findViewById(R.id.ivEvent);
         tvNameEvent.setText(event.getNameEvent());
+        tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+        tvDescription.setText(event.getDescriptionEvent());
+
 
         Picasso.with(getActivity()).load(event.getUriEvent().toString()).into(ivEvent);
         System.out.println("push");
