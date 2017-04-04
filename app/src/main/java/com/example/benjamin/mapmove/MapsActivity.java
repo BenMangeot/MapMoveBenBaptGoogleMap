@@ -54,6 +54,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -179,8 +181,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (id == R.id.nav_map) {
             setFragToMaps();
         } else if (id == R.id.nav_account) {
-            Intent intent = new Intent(MapsActivity.this, ListEventsActivity.class);
-            startActivity(intent);
+           setFragToList();
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
             signOut();
@@ -223,6 +224,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void setFragToFormEvent(){
         getFragmentManager().beginTransaction().remove(mMapFragment).commit();
         FormulaireEventFragment fragment = new FormulaireEventFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void setFragToList(){
+        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
+        ListFragment fragment = new ListFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
