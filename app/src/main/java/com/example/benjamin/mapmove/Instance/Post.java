@@ -10,24 +10,24 @@ public class Post {
 
     }
 
-    public Post(String nameEvent, String descriptionEvent, String adress, String image) {
+    public Post(String nameEvent, String descriptionEvent, String adress, String uriEvent) {
         this.nameEvent = nameEvent;
         this.descriptionEvent = descriptionEvent;
         this.adress = adress;
-        this.image = image;
+        this.uriEvent = uriEvent;
     }
 
     private String nameEvent;
     private String descriptionEvent;
     private String adress;
-    private String image;
+    private String uriEvent;
 
-    public String getImage() {
-        return image;
+    public String getUriEvent() {
+        return uriEvent;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setUriEvent(String uriEvent) {
+        this.uriEvent = uriEvent;
     }
 
     public String getNameEvent() {

@@ -1,5 +1,6 @@
 package com.example.benjamin.mapmove;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,14 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.benjamin.mapmove.Instance.Post;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -80,6 +81,7 @@ public class ListFragment extends Fragment {
                 viewHolder.setTitle(model.getNameEvent());
                 viewHolder.setDesc(model.getDescriptionEvent());
                 viewHolder.setAdress(model.getAdress());
+                viewHolder.setImage(getContext(), model.getUriEvent());
 
 
             }
@@ -97,22 +99,24 @@ public class ListFragment extends Fragment {
             mView = itemView;
         }
 
-            public void setTitle(String title){
+        public void setTitle(String title){
                 TextView list_title = (TextView) mView.findViewById(R.id.nameEvent);
                 list_title.setText(title);
-
-
             }
+
         public void setDesc(String desc){
             TextView list_desc = (TextView) mView.findViewById(R.id.descriptionEvent);
             list_desc.setText(desc);
-
-
         }
+
         public void setAdress(String address){
             TextView list_address = (TextView) mView.findViewById(R.id.adress);
             list_address.setText(address);
+        }
 
+        public void setImage(Context ctx,String image){
+            ImageView list_image = (ImageView) mView.findViewById(R.id.uriEvent);
+            Picasso.with(ctx).load(image).into(list_image);
 
         }
     }
