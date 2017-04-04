@@ -189,7 +189,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (id == R.id.nav_creer_event) {
             setFragToFormEvent();
         } else if (id == R.id.nav_send) {
-
+            setFragToCompte();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -209,6 +209,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         fragmentTransaction.commit();
 
         mMapFragment.getMapAsync(this);
+    }
+
+    private void setFragToCompte(){
+        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
+        CompteFragment fragment = new CompteFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
     
     private void setFragToFormEvent(){

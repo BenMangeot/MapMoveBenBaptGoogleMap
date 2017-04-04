@@ -1,6 +1,7 @@
 package com.example.benjamin.mapmove;
 
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +46,8 @@ import static com.android.volley.VolleyLog.TAG;
 public class FormulaireEventFragment extends Fragment {
 
     private EditText etNameEvent, etAddress, etDescription;
-    private Button bCreerEvent, bSelecImage;
+    private ImageButton ibSelectImage;
+    private Button bCreerEvent;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
     private Uri uriEvent =  null;
@@ -53,6 +56,8 @@ public class FormulaireEventFragment extends Fragment {
     private MapFragment mMapFragment;
     private android.support.v4.app.FragmentTransaction fragmentTransaction;
     private static final int GALLERY_INTENT = 2;
+    Uri imageUri = null;
+    private ProgressDialog mProgressDialog;
 
 
 
@@ -69,18 +74,19 @@ public class FormulaireEventFragment extends Fragment {
         etDescription = (EditText) view.findViewById(R.id.etDescription);
         etAddress = (EditText) view.findViewById(R.id.addressEdit);
         bCreerEvent = (Button) view.findViewById(R.id.bCreerEvent);
-        bSelecImage = (Button) view.findViewById(R.id.bSelecImage);
+        ibSelectImage = (ImageButton) view.findViewById(R.id.ibSelectImage);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         infoText = (TextView) view.findViewById(R.id.infoText);
+        mProgressDialog = new ProgressDialog(getActivity());
 
 
-        bSelecImage.setOnClickListener(new View.OnClickListener() {
+        ibSelectImage.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
-                                               Intent intent = new Intent (Intent.ACTION_PICK);
+                                               Intent galleryIntent = new Intent (Intent.ACTION_GET_CONTENT);
 
-                                               intent.setType("image/*");
-                                               startActivityForResult(intent, GALLERY_INTENT);
+                                               galleryIntent.setType("image/*");
+                                               startActivityForResult(galleryIntent, GALLERY_INTENT);
 
                                            }
                                        }
@@ -114,28 +120,27 @@ public class FormulaireEventFragment extends Fragment {
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
-            Uri uri = data.getData();
+            mProgressDialog.setMessage("Uploaoding...");
+            mProgressDialog.show();
+            imageUri = data.getData();
+            ibSelectImage.setImageURI(imageUri);
 
-            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
+            StorageReference filepath = mStorage.child("Photos").child(imageUri.getLastPathSegment());
 
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     uriEvent = taskSnapshot.getDownloadUrl();
 
                     //Picasso.with(getActivity()).load(downloadUri).fit().centerCrop().into(mImageView);
 
-                    Toast.makeText(getActivity(), "Upload Done", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), "Upload Done", Toast.LENGTH_LONG).show();
+                    mProgressDialog.dismiss();
                 }
             });
         }
 
     }
-
-
-
-
-
 
     /** Classe qui nous permet de créer un nouvel evenement dans la base de données */
 
@@ -189,11 +194,12 @@ public class FormulaireEventFragment extends Fragment {
                 String nameEvent = etNameEvent.getText().toString();
                 String descriptionEvent = etDescription.getText().toString();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent);
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }
                 mDatabase.push().setValue(event);
+
             }
         }
     }

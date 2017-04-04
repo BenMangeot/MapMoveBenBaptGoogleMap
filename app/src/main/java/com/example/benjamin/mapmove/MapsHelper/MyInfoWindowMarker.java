@@ -25,6 +25,7 @@ public class MyInfoWindowMarker implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoContents(Marker marker) {
         /** On récupere l'event associé au marker et on associe ces valeurs aux textvieux */
+
         Event event = (Event) marker.getTag();
         TextView tvTitle=(TextView)myContentsView.findViewById(R.id.titleEvent);
         TextView tvDescription=(TextView)myContentsView.findViewById(R.id.coucou);
