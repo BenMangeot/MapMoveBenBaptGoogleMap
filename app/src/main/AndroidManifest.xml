@@ -44,7 +44,6 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".FormulaireEventFragment" />
-        <activity android:name=".ListEventsActivity"></activity>
     </application>
 
 </manifest>
