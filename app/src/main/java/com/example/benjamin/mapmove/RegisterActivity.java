@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = userFromRegistration.getEmail();
         String userId = userFromRegistration.getUid();
 
-        User user = new User(username, email);
+        User user = new User(username, email, null);
 
         mdatabase.child("users").child(userId).setValue(user);
     }

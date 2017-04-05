@@ -142,8 +142,10 @@ public class FormulaireEventFragment extends Fragment {
 
     }
 
-    /** Classe qui nous permet de créer un nouvel evenement dans la base de données */
-
+    /**
+     ******** CREATEVENT ********
+     * Classe qui nous permet de créer un nouvel evenement dans la base de données
+     * */
     class CreateEvent extends AsyncTask<Void, Void, Address> {
 
         String errorMessage = "";
