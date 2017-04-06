@@ -231,12 +231,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setFragToList(){
-        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
-        ListFragment fragment = new ListFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+        Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void setFragToSettings(){
