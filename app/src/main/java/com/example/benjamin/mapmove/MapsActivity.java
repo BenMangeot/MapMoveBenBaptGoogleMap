@@ -39,7 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener{
+public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
     // [Start decla]
@@ -96,64 +96,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-        mMap = googleMap;
-        mDatabase.child("events").addValueEventListener(new ValueEventListener() {
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
-                    /** On crée un marqueur par event */
-                    Event event = postSnapshot.getValue(Event.class);
-                    LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
-                    Marker marker = mMap.addMarker(new MarkerOptions().position(posEvent).title(event.getNameEvent()));
-                    marker.setTag(event);
-
-                    mMap.setInfoWindowAdapter(new MyInfoWindowMarker(getLayoutInflater()));
-                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(Marker marker) {
-                            marker.showInfoWindow();
-
-                            return true;
-                        }
-                    });
-
-                    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-
-                        @Override
-                        public void onInfoWindowClick(Marker marker) {
-                            Event eventToDetail = (Event) marker.getTag();
-                            Toast.makeText(MapsActivity.this, eventToDetail.getNameEvent(),
-                                    Toast.LENGTH_LONG).show();
-                            getFragmentManager().beginTransaction().remove(mMapFragment).commit();
-                            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                            Fragment fragment = DetailEventFragment.newInstance(eventToDetail);
-                            ft.replace(R.id.fragment_container, fragment);
-                            ft.commit();
-                        }
-                    });
-                }
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-        LatLng posEvent =  new LatLng(50.629728, 3.043672);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 10));
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        mMap.setMyLocationEnabled(true);
-    }
-
 
 
 
@@ -204,12 +146,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setFragToMaps(){
-        mMapFragment = MapFragment.newInstance();
-        fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, mMapFragment);
+        MapsFragment fragment = new MapsFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
-
-        mMapFragment.getMapAsync(this);
     }
 
     private void setFragToCompte(){
