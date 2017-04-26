@@ -133,6 +133,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         mAuth.signOut();
         Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void setFragToMaps(){

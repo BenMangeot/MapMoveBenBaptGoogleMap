@@ -112,6 +112,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                             Toast.makeText(getContext(), eventToDetail.getNameEvent(),
                                     Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getActivity(), EventActivity.class);
+                            intent.putExtra("my_event", eventToDetail);
                             startActivity(intent);
                         }
                     });
