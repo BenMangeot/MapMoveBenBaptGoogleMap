@@ -13,7 +13,8 @@ public class EventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
 
