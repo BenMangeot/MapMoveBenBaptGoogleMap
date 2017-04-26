@@ -4,6 +4,7 @@ package com.example.benjamin.mapmove;
  * Created by Benjamin on 24/04/2017.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     private DatabaseReference mDatabase;
 
     public MapsFragment() {
-        // Required empty public constructor
+        // Constructeur vide indispensable
     }
 
     @Override
@@ -48,11 +49,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.first_fragment, container, false);
         return mView;
-
-
     }
 
     @Override
@@ -74,27 +72,29 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
         mGoogleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
+        // Initiation de la position de base du centrage de la maps
         LatLng posEvent =  new LatLng(50.629728, 3.043672);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posEvent, 10));
 
-
         mGoogleMap.setMyLocationEnabled(true);
-
 
         final LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        /** INITIALISATION DES MARQUEURS */
         mDatabase.child("events").addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot){
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
-                    /** On crée un marqueur par event */
+                    /* On crée un marqueur par event */
                     Event event = postSnapshot.getValue(Event.class);
                     LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
                     Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(posEvent).title(event.getNameEvent()));
                     marker.setTag(event);
 
                     mGoogleMap.setInfoWindowAdapter(new MyInfoWindowMarker(inflater));
+
                     mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                         @Override
                         public boolean onMarkerClick(Marker marker) {
@@ -111,17 +111,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                             Event eventToDetail = (Event) marker.getTag();
                             Toast.makeText(getContext(), eventToDetail.getNameEvent(),
                                     Toast.LENGTH_LONG).show();
-
-
+                            Intent intent = new Intent(getActivity(), EventActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }
 
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
+
         });
 
 

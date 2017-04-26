@@ -1,14 +1,10 @@
 package com.example.benjamin.mapmove;
 
 
-import android.Manifest;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,19 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.benjamin.mapmove.Instance.Event;
-import com.example.benjamin.mapmove.MapsHelper.MyInfoWindowMarker;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,12 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
-    // [Start decla]
-    private GoogleMap mMap;
+    /* Declaration  Firbase*/
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private MapFragment mMapFragment;
-    private FragmentTransaction fragmentTransaction;
+
+    /* Declaration  Fragment */
+    android.support.v4.app.FragmentTransaction mFragmentTransaction;
+    FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +54,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        /** Initialisation du fragment */
+        /* Initialisation du fragment */
         setFragToMaps();
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -93,6 +80,9 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
     }
 
 
@@ -153,40 +143,24 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    private void setFragToCompte(){
-        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
-        CompteFragment fragment = new CompteFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+    public void setFragToCompte() {
+        android.support.v4.app.FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment_container, new CompteFragment()).commit();
     }
     
     private void setFragToFormEvent(){
-        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
-        FormulaireEventFragment fragment = new FormulaireEventFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+        android.support.v4.app.FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment_container, new FormulaireEventFragment()).commit();
     }
 
     private void setFragToList(){
-        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
-        ListFragment fragment = new ListFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+        android.support.v4.app.FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment_container, new ListFragment()).commit();
     }
 
     private void setFragToSettings(){
-        getFragmentManager().beginTransaction().remove(mMapFragment).commit();
-        SettingsFragment fragment = new SettingsFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
+        android.support.v4.app.FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment_container, new SettingsFragment()).commit();
     }
 
     public void onButtonClicked(View view) {
