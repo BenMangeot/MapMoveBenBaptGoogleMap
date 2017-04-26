@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         tools:context="com.example.benjamin.mapmove.DetailEventFragment"
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1" >
 
 
         <TextView
