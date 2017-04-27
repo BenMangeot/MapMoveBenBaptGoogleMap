@@ -52,7 +52,6 @@ public class FormulaireEventFragment extends Fragment {
     private StorageReference mStorage;
     private Uri uriEvent =  null;
     ProgressBar progressBar;
-    TextView infoText;
     private MapFragment mMapFragment;
     private android.support.v4.app.FragmentTransaction fragmentTransaction;
     private static final int GALLERY_INTENT = 2;
@@ -76,7 +75,6 @@ public class FormulaireEventFragment extends Fragment {
         bCreerEvent = (Button) view.findViewById(R.id.bCreerEvent);
         ibSelectImage = (ImageButton) view.findViewById(R.id.ibSelectImage);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        infoText = (TextView) view.findViewById(R.id.infoText);
         mProgressDialog = new ProgressDialog(getActivity());
 
 
@@ -152,7 +150,6 @@ public class FormulaireEventFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            infoText.setVisibility(View.INVISIBLE);
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -179,8 +176,6 @@ public class FormulaireEventFragment extends Fragment {
         protected void onPostExecute(Address address) {
             if(address == null) {
                 progressBar.setVisibility(View.INVISIBLE);
-                infoText.setVisibility(View.VISIBLE);
-                infoText.setText(errorMessage);
             }
             else {
                 String addressName = "";
@@ -188,10 +183,6 @@ public class FormulaireEventFragment extends Fragment {
                     addressName += " --- " + address.getAddressLine(i);
                 }
                 progressBar.setVisibility(View.INVISIBLE);
-                infoText.setVisibility(View.VISIBLE);
-                infoText.setText("Latitude: " + address.getLatitude() + "\n" +
-                        "Longitude: " + address.getLongitude() + "\n" +
-                        "Address: " + addressName);
 
                 String nameEvent = etNameEvent.getText().toString();
                 String descriptionEvent = etDescription.getText().toString();

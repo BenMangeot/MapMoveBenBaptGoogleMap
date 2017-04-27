@@ -27,7 +27,7 @@
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_link_to_register">Créez un Compte</string>
-    <string name="btn_link_to_register_pro">Vous êtes un professionnel ? Vous voulez promouvoir vos évenement? C'est par ici !</string>
+    <string name="btn_link_to_register_pro">Vous êtes un professionnel  par ici !</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot your password?</string>
