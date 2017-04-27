@@ -9,13 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.benjamin.mapmove.Instance.Event;
 import com.example.benjamin.mapmove.Instance.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,9 +27,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 
-import org.w3c.dom.Text;
-
-import java.net.URI;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,9 +44,9 @@ public class CompteFragment extends Fragment {
      */
     private TextView tvUserName, tvMail;
     private View mView;
-    private ImageButton ibAddPhotoUser;
-    private ImageView ivPhotoUser;
-    private Button bChangePhotoUser;
+   // private ImageButton ibAddPhotoUser;
+    private CircleImageView ivPhotoUser;
+   // private Button bChangePhotoUser;
     private ProgressDialog mProgressDialog;
     /**
      * Provient des tuto
@@ -77,9 +71,9 @@ public class CompteFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_compte, container, false);
         tvUserName = (TextView) mView.findViewById(R.id.tvUserName);
         tvMail = (TextView) mView.findViewById(R.id.tvMail);
-        ibAddPhotoUser = (ImageButton) mView.findViewById(R.id.ibAddPhotoUser);
-        bChangePhotoUser = (Button) mView.findViewById(R.id.bChangePhotoUser);
-        ivPhotoUser = (ImageView) mView.findViewById(R.id.ivPhotoUser);
+       // ibAddPhotoUser = (ImageButton) mView.findViewById(R.id.ibAddPhotoUser);
+       // bChangePhotoUser = (Button) mView.findViewById(R.id.bChangePhotoUser);
+        ivPhotoUser = (CircleImageView) mView.findViewById(R.id.ivPhotoUser);
         mProgressDialog = new ProgressDialog(getActivity());
         /**
          * Init FireBase
@@ -106,16 +100,16 @@ public class CompteFragment extends Fragment {
          * */
                 if (mUser.getUriUser() == null) {
                     ivPhotoUser.setVisibility(mView.GONE);
-                    bChangePhotoUser.setVisibility(mView.GONE);
+                  //  bChangePhotoUser.setVisibility(mView.GONE);
 
                 } else {
-                    ibAddPhotoUser.setVisibility(mView.GONE);
+                   // ibAddPhotoUser.setVisibility(mView.GONE);
                     Picasso.with(getActivity()).load(mUser.getUriUser().toString()).into(ivPhotoUser);
                 }
     /**
         *   Ajout d'une photo a partie de l'ImageButton *
      */
-                ibAddPhotoUser.setOnClickListener(new View.OnClickListener() {
+             /*   ibAddPhotoUser.setOnClickListener(new View.OnClickListener() {
                                                       @Override
                                                       public void onClick(View view) {
                                                           Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -127,7 +121,7 @@ public class CompteFragment extends Fragment {
                                                       }
                                                   }
 
-                );
+                ); */
             }
 
             @Override
@@ -153,7 +147,7 @@ public class CompteFragment extends Fragment {
             mProgressDialog.setMessage("Uploaoding...");
             mProgressDialog.show();
             photoUri = data.getData();
-            ibAddPhotoUser.setImageURI(photoUri);
+            // ibAddPhotoUser.setImageURI(photoUri);
 
             StorageReference filepath = mStorage.child("PhotosUser").child(photoUri.getLastPathSegment());
 

@@ -1,11 +1,24 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.benjamin.mapmove.CompteFragment"
-    android:orientation="vertical"
-    android:layout_marginTop="80dp">
+    android:fitsSystemWindows="true"
+    android:layout_marginTop="55dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:srcCompat="@mipmap/add_btn"
+            android:src="@mipmap/logommbon"
+            android:id="@+id/ivPhotoUser" />
 
     <TextView
         android:text="TextView"
@@ -14,7 +27,8 @@
         android:id="@+id/tvUserName"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:text="TextView"
@@ -23,24 +37,12 @@
         android:id="@+id/tvMail"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/white"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/add_btn"
-        android:id="@+id/ivPhotoUser" />
 
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/add_btn"
-        android:id="@+id/ibAddPhotoUser" />
 
-    <Button
-        android:text="Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bChangePhotoUser" />
 
 </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
