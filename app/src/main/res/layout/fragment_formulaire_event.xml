@@ -26,7 +26,7 @@
     <EditText
         android:id="@+id/addressEdit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="69dp"
         android:minLines="4"
         android:hint="Address"
         android:textAlignment="center" />
@@ -50,11 +50,7 @@
         android:id="@+id/bCreerEvent"
         android:onClick="onButtonClicked"/>
 
-    <TextView
-        android:id="@+id/infoText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/actionButton"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -63,5 +59,15 @@
         android:layout_below="@id/actionButton"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="5.38">
+
+
+
+    </LinearLayout>
 
 </LinearLayout>

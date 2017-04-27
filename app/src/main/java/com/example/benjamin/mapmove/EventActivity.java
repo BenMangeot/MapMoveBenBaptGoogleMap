@@ -22,7 +22,6 @@ public class EventActivity extends AppCompatActivity {
     private Event mEvent;
     private TextView tvNameEvent, tvDescription;
     private ImageView ivEvent;
-    private ProgressBar progressBar;
 
 
     @Override
@@ -30,7 +29,8 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+
 
 
 /*[ INIT TOOLBAR ] */
@@ -41,6 +41,10 @@ public class EventActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 /*[FIN DE TOOLBAR]*/
+
+
+
+
         mEvent = (Event) getIntent().getExtras().getSerializable("my_event");
 
         tvNameEvent = (TextView) findViewById(R.id.tvTitreEvent);
@@ -52,8 +56,8 @@ public class EventActivity extends AppCompatActivity {
         tvDescription.setText(mEvent.getAdress());
 
 
-        Picasso.with(this).load(mEvent.getUriEvent().toString()).into(ivEvent);
 
+        Picasso.with(this).load(mEvent.getUriEvent().toString()).into(ivEvent);
 
     }
 
