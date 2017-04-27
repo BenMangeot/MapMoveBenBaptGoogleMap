@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class MapsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
     // [Start decla]
@@ -124,7 +124,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
 
     private void signOut() {
         mAuth.signOut();
-        Intent intent = new Intent(MapsActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
@@ -170,7 +170,7 @@ public class MapsActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onButtonClicked(View view) {
-        Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
+        Intent intent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

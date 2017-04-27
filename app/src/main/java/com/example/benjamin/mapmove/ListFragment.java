@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.benjamin.mapmove.Instance.Post;
+import com.example.benjamin.mapmove.Instance.Event;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 
 public class ListFragment extends Fragment {
@@ -69,14 +67,14 @@ public class ListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        final FirebaseRecyclerAdapter<Post,ListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Post, ListViewHolder>(
-                Post.class,
+        final FirebaseRecyclerAdapter<Event,ListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, ListViewHolder>(
+                Event.class,
                 R.layout.list_row,
                 ListViewHolder.class,
                 mDatabase
         ) {
             @Override
-            protected void populateViewHolder(ListViewHolder viewHolder, Post model, int position) {
+            protected void populateViewHolder(ListViewHolder viewHolder, Event model, int position) {
 
                 viewHolder.setTitle(model.getNameEvent());
                 viewHolder.setDesc(model.getDescriptionEvent());

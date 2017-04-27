@@ -48,6 +48,8 @@ public class EventActivity extends AppCompatActivity {
         tvNameEvent.setText(mEvent.getNameEvent());
         tvDescription = (TextView) findViewById(R.id.tvDescription);
         tvDescription.setText(mEvent.getDescriptionEvent());
+        tvDescription = (TextView) findViewById(R.id.tvAddress);
+        tvDescription.setText(mEvent.getAdress());
 
 
         Picasso.with(this).load(mEvent.getUriEvent().toString()).into(ivEvent);

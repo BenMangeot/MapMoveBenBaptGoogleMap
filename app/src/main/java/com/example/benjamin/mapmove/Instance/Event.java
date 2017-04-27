@@ -31,6 +31,26 @@ public class Event implements Serializable {
         this.descriptionEvent = descriptionEvent;
     }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public void setLg(Double lg) {
+        this.lg = lg;
+    }
+
+    public void setNameEvent(String nameEvent) {
+        this.nameEvent = nameEvent;
+    }
+
     public Double getLat() {
         return lat;
     }
@@ -52,6 +72,13 @@ public class Event implements Serializable {
         this.nameEvent=nameEvent;
         this.descriptionEvent=descriptionEvent;
         this.adress = adress;
+    }
+
+    public Event(String nameEvent, String descriptionEvent, String adress, String uriEvent) {
+        this.nameEvent = nameEvent;
+        this.descriptionEvent = descriptionEvent;
+        this.adress = adress;
+        this.uriEvent = uriEvent;
     }
 
     public String getUriEvent() {

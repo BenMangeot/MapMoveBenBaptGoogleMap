@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 } else {
 
                                     createNewUser(task.getResult().getUser());
-                                    startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
+                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                     finish();
                                 }
                             }
