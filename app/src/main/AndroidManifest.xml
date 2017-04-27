@@ -43,6 +43,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".EventActivity"/>
     </application>
 
 </manifest>

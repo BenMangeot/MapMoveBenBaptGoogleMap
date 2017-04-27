@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
@@ -37,6 +38,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     View mView;
     private DatabaseReference mDatabase;
 
+
     public MapsFragment() {
         // Constructeur vide indispensable
     }
@@ -49,8 +51,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         mView = inflater.inflate(R.layout.first_fragment, container, false);
         return mView;
+
     }
 
     @Override

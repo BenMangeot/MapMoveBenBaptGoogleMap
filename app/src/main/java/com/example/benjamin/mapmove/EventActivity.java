@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -21,12 +22,16 @@ public class EventActivity extends AppCompatActivity {
     private Event mEvent;
     private TextView tvNameEvent, tvDescription;
     private ImageView ivEvent;
+    private ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
 
 /*[ INIT TOOLBAR ] */
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
