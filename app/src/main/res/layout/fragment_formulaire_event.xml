@@ -26,7 +26,8 @@
                 android:layout_marginBottom="10dp"
                 android:hint="Nom de l'évenement"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColorHint="@android:color/white"
+                android:imeOptions="actionNext"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -40,7 +41,8 @@
         android:layout_marginBottom="10dp"
         android:hint="Adresse de l'évenement"
         android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white" />
+        android:textColorHint="@android:color/white"
+                android:imeOptions="actionNext"/>
     </android.support.design.widget.TextInputLayout>
 
         <ImageButton
@@ -60,7 +62,8 @@
             android:layout_marginBottom="10dp"
             android:hint="Description de l'évenement"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColorHint="@android:color/white"
+            android:imeOptions="actionDone"/>
     </android.support.design.widget.TextInputLayout>
 
 

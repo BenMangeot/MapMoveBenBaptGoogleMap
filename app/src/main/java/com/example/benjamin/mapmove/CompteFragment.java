@@ -4,11 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,145 +26,125 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
 public class CompteFragment extends Fragment {
 
-/** DECLARATION */
-    /**
-     * Decla Firebase
-     */
+    private TextView nameUser, mailUser;
+    private CircleImageView uriUser;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
-    /**
-     * Decla XML
-     */
-    private TextView tvUserName, tvMail;
-    private View mView;
-   // private ImageButton ibAddPhotoUser;
-    private CircleImageView ivPhotoUser;
-   // private Button bChangePhotoUser;
+    private Button btnPhoto, btnSettings;
     private ProgressDialog mProgressDialog;
-    /**
-     * Provient des tuto
-     */
-    private static final int GALLERY_INTENT = 2;
-    private Uri photoUri =  null;
 
-    /**
-     * Variable "final"
-     */
+    private static final int GALLERY_INTENT = 2;
+
     User mUser;
     FirebaseUser mUserFirebase;
+    Uri imageUri = null;
+    private Uri newUriUser =  null;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-/** INITIALISATION DES VALEURS */
-        /**
-         * Init XML
-         * */
-        mView = inflater.inflate(R.layout.fragment_compte, container, false);
-        tvUserName = (TextView) mView.findViewById(R.id.tvUserName);
-        tvMail = (TextView) mView.findViewById(R.id.tvMail);
-       // ibAddPhotoUser = (ImageButton) mView.findViewById(R.id.ibAddPhotoUser);
-       // bChangePhotoUser = (Button) mView.findViewById(R.id.bChangePhotoUser);
-        ivPhotoUser = (CircleImageView) mView.findViewById(R.id.ivPhotoUser);
+        View view = inflater.inflate(R.layout.fragment_compte, container, false);
+
+        nameUser = (TextView) view.findViewById(R.id.nameUser);
+        mailUser = (TextView) view.findViewById(R.id.mailUser);
+        btnPhoto = (Button) view.findViewById(R.id.btn_photo);
+        btnSettings = (Button) view.findViewById(R.id.btn_setting);
+
         mProgressDialog = new ProgressDialog(getActivity());
-        /**
-         * Init FireBase
-         * */
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+        uriUser = (CircleImageView) view.findViewById(R.id.uriUser);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mUserFirebase = FirebaseAuth.getInstance().getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
 
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+            }
+        });
 
-/** ********* FIREBASE ******* */
-        // On se postionne dans l'arbe au bon id
-        mDatabase.child("users").child(mUserFirebase.getUid()).addValueEventListener(new ValueEventListener() {
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent galleryIntent = new Intent (Intent.ACTION_GET_CONTENT);
+
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_INTENT);
+
+
+            }
+        });
+
+        mDatabase.child(mUserFirebase.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Recupération de l'objet USER
                 mUser = dataSnapshot.getValue(User.class);
 
                 // Modification des TextView avec les Valeurs */
-                tvUserName.setText(mUser.getUsername());
-                tvMail.setText(mUser.getEmail());
-
-        /**
-         * MODIFICATION DE L'AFFICHAGE EN FCT DU COMPTE UTI (photo ou non)
-         * */
-                if (mUser.getUriUser() == null) {
-                    ivPhotoUser.setVisibility(mView.GONE);
-                  //  bChangePhotoUser.setVisibility(mView.GONE);
-
-                } else {
-                   // ibAddPhotoUser.setVisibility(mView.GONE);
-                    Picasso.with(getActivity()).load(mUser.getUriUser().toString()).into(ivPhotoUser);
-                }
-    /**
-        *   Ajout d'une photo a partie de l'ImageButton *
-     */
-             /*   ibAddPhotoUser.setOnClickListener(new View.OnClickListener() {
-                                                      @Override
-                                                      public void onClick(View view) {
-                                                          Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-
-                                                          galleryIntent.setType("image/*");
-                                                          startActivityForResult(galleryIntent, GALLERY_INTENT);
-                                                          System.out.println(mUser.getUriUser());
-                                                          mDatabase.child("users").child(mUserFirebase.getUid()).setValue(mUser);
-                                                      }
-                                                  }
-
-                ); */
+                nameUser.setText(mUser.getUsername());
+                mailUser.setText(mUser.getEmail());
+                Picasso.with(getContext()).load(mUser.getUriUser()).into(uriUser);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
 
-        return mView;
+        return view;
+
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void updatePhoto(FirebaseUser userFromUpdateEmail, String newUriUser) {
+        final String userId = userFromUpdateEmail.getUid();
+
+        mDatabase.child(userId).child("uriUser").setValue(newUriUser);
+
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
 
             mProgressDialog.setMessage("Uploaoding...");
             mProgressDialog.show();
-            photoUri = data.getData();
-            // ibAddPhotoUser.setImageURI(photoUri);
+            imageUri = data.getData();
 
-            StorageReference filepath = mStorage.child("PhotosUser").child(photoUri.getLastPathSegment());
+            StorageReference filepath = mStorage.child("PhotosUser").child(imageUri.getLastPathSegment());
 
-            filepath.putFile(photoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    photoUri = taskSnapshot.getDownloadUrl();
-                    mUser.setUriUser(photoUri.toString());
+                    newUriUser = taskSnapshot.getDownloadUrl();
+
+                    //Picasso.with(getActivity()).load(downloadUri).fit().centerCrop().into(mImageView);
+
                     Toast.makeText(getActivity(), "Upload Done", Toast.LENGTH_LONG).show();
                     mProgressDialog.dismiss();
-                    mDatabase.child("users").child(mUserFirebase.getUid()).setValue(mUser);
-                    Toast.makeText(getActivity(), "L'image a bien été changé !", Toast.LENGTH_LONG).show();
-
+                    updatePhoto(mUserFirebase, newUriUser.toString());
                 }
             });
         }
 
-
     }
+
 }

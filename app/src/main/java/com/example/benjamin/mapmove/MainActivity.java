@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.benjamin.mapmove.Instance.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -31,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+
+    User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +67,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         /** Initialisation du set Text dans le menu */
-        mDatabase.child("users").child(user.getUid()).child("username").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot){
 
-                String name = dataSnapshot.getValue().toString();
+                mUser = dataSnapshot.getValue(User.class);
+
 
                 View v = navigationView.getHeaderView(0);
                 TextView avatarContainer = (TextView ) v.findViewById(R.id.tvUsername);
-                avatarContainer.setText(name);
+                avatarContainer.setText(mUser.getUsername());
+
+                CircleImageView pict = (CircleImageView) v.findViewById(R.id.imageView);
+                Picasso.with(getApplication()).load(mUser.getUriUser()).into(pict);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -106,16 +117,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_map) {
             setFragToMaps();
         } else if (id == R.id.nav_account) {
-           setFragToList();
+            setFragToCompte();
         } else if (id == R.id.nav_logout) {
             Toast.makeText(this,"Log out",Toast.LENGTH_LONG).show();
             signOut();
         } else if (id == R.id.nav_manage) {
-            setFragToSettings();
+
         } else if (id == R.id.nav_creer_event) {
             setFragToFormEvent();
         } else if (id == R.id.nav_send) {
-            setFragToCompte();
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
