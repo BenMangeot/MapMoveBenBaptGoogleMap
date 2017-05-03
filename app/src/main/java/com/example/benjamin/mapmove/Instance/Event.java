@@ -30,6 +30,7 @@ public class Event implements Serializable {
     public String descriptionEvent;
     public String adress;
     public String type;
+    public String userPro;
 
     public String getType() {
         return type;
@@ -38,8 +39,6 @@ public class Event implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
-
-
 
     public String getDescriptionEvent() {
         return descriptionEvent;
@@ -84,13 +83,14 @@ public class Event implements Serializable {
     public Event(){ // Obligatoir pr firebase même si grisé/non-utilisé
     }
 
-    public Event(Double lat, Double lg, String nameEvent, String descriptionEvent, String adress, String type){
+    public Event(Double lat, Double lg, String nameEvent, String descriptionEvent, String adress, String type, String userPro){
         this.lat = lat;
         this.lg = lg;
         this.nameEvent=nameEvent;
         this.descriptionEvent=descriptionEvent;
         this.adress = adress;
         this.type = type;
+        this.userPro = userPro;
     }
 
     public Event(String nameEvent, String descriptionEvent, String adress, String uriEvent) {
@@ -106,6 +106,14 @@ public class Event implements Serializable {
 
     public void setUriEvent(String uriEvent) {
         this.uriEvent = uriEvent;
+    }
+
+    public String getUserPro() {
+        return userPro;
+    }
+
+    public void setUserPro(String userPro) {
+        this.userPro = userPro;
     }
 
     public float getColorMarker(){

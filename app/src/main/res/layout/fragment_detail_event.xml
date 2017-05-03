@@ -19,10 +19,19 @@
         android:textStyle="normal|bold" />
 
     <TextView
+    android:text="TextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tvDescription"
+    android:textAlignment="center"
+    android:textSize="24sp"
+    android:textStyle="normal|bold" />
+
+    <TextView
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvCreator"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="normal|bold" />

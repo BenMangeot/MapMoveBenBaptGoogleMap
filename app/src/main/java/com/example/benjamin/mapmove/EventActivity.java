@@ -20,7 +20,7 @@ public class EventActivity extends AppCompatActivity {
 
     private static final String DESCRIBABLE_KEY = "describable_key";
     private Event mEvent;
-    private TextView tvNameEvent, tvDescription;
+    private TextView tvNameEvent, tvDescription, tvCreator;
     private ImageView ivEvent;
 
 
@@ -54,6 +54,8 @@ public class EventActivity extends AppCompatActivity {
         tvDescription.setText(mEvent.getDescriptionEvent());
         tvDescription = (TextView) findViewById(R.id.tvAddress);
         tvDescription.setText(mEvent.getAdress());
+        tvCreator = (TextView) findViewById(R.id.tvCreatore);
+        tvCreator.setText("Cet événement a été créé par "+mEvent.getUserPro());
 
 
 
