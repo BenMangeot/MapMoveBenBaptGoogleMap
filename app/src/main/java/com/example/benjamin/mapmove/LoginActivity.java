@@ -60,6 +60,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btnSignPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterProActivity.class));
+            }
+        });
+
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

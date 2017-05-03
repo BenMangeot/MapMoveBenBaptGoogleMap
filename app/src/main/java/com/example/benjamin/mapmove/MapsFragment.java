@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -86,15 +87,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        /** INITIALISATION DES MARQUEURS */
+        /* MISE EN PLACE + CONFIG DES MARQUEURS */
         mDatabase.child("events").addValueEventListener(new ValueEventListener() {
+
             public void onDataChange(DataSnapshot dataSnapshot){
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
                     /* On crée un marqueur par event */
                     Event event = postSnapshot.getValue(Event.class);
                     LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
-                    Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(posEvent).title(event.getNameEvent()));
+
+                    Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(posEvent).title(event.getNameEvent()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                     marker.setTag(event);
 
                     mGoogleMap.setInfoWindowAdapter(new MyInfoWindowMarker(inflater));
@@ -130,6 +133,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
             }
 
         });
+        /* --FIN-- MISE EN PLACE + CONFIG DES MARQUEURS */
+
 
 
     }

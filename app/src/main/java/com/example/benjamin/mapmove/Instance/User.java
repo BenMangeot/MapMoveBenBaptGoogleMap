@@ -8,14 +8,21 @@ public class User {
 
     private String username;
     private String email;
-    public String uriUser = null;
+    private String uriUser = null;
+    private Boolean boolPro;
 
+    public User (String username, String email){
+        this.username = username;
+        this.email = email;
+        this.boolPro=false;
+    }
 
 
     public User (String username, String email, String uriUser){
         this.username = username;
         this.email = email;
         this.uriUser = uriUser;
+        this.boolPro=false;
     }
 
     public User(){
@@ -35,5 +42,13 @@ public class User {
 
     public void setUriUser(String uriUser) {
         this.uriUser = uriUser;
+    }
+
+    public Boolean getBoolPro() {
+        return boolPro;
+    }
+
+    public void setBoolPro(Boolean boolPro) {
+        this.boolPro = boolPro;
     }
 }

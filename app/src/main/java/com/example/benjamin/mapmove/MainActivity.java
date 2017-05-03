@@ -35,44 +35,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
+    private NavigationView navigationView;
     User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        /* INITIALISATION DES XML "CONSTANTS" */
+        // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        //Set the toggle
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        //Navigation view avec la modif si le user est un compte pro
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        /* --FIN-- INITIALISATION DES XML "CONSTANTS" */
 
-        /** Initialisation du fragment */
+        /* INITIALISATION DU FRAGMENT PRINCIPALE PAR L'INTERFACE CARTE */
         setFragToMaps();
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        /** Initialisation du set Text dans le menu */
-        mDatabase.child("users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        /* MODIFICATION DE L'INTERFACE A PARTIR DE LA BDD */
+        mDatabase.child("users").child(fbUser.getUid()).addValueEventListener(new ValueEventListener() {
 
             public void onDataChange(DataSnapshot dataSnapshot){
 
                 mUser = dataSnapshot.getValue(User.class);
-
 
                 View v = navigationView.getHeaderView(0);
                 TextView avatarContainer = (TextView ) v.findViewById(R.id.tvUsername);
@@ -81,12 +79,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 CircleImageView pict = (CircleImageView) v.findViewById(R.id.imageView);
                 Picasso.with(getApplication()).load(mUser.getUriUser()).into(pict);
 
+                showItem(mUser);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        /* --FIN--MODIFICATION A PARTIR DE LA BDD */
+
+
     }
 
 
@@ -105,14 +107,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.drawer, menu);
+        super.onCreateOptionsMenu(menu);
+
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+
 
         if (id == R.id.nav_map) {
             setFragToMaps();
@@ -184,6 +193,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * showItem
+     * Affiche l'item de la navigation bar "créer un evenement" pour les compte pro
+     */
+    private void showItem(User user) {
+        if(user.getBoolPro()==true) {
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.nav_creer_event).setVisible(true);
+        }
+    }
 }
+
 
 

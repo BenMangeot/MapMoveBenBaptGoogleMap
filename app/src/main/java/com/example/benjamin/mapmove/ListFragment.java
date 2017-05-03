@@ -80,8 +80,6 @@ public class ListFragment extends Fragment {
                 viewHolder.setDesc(model.getDescriptionEvent());
                 viewHolder.setAdress(model.getAdress());
                 viewHolder.setImage(getContext(), model.getUriEvent());
-
-
             }
         };
 
