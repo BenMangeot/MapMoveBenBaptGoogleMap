@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
@@ -94,7 +96,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
                     /* On crée un marqueur par event */
+
+                    long cdate = System.currentTimeMillis();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String dataString = sdf.format(cdate);
+                    dataString = dataString.intern();
+
                     Event event = postSnapshot.getValue(Event.class);
+                    String datac = event.getDate().intern();
+
+                   if (datac == dataString){
+
+
                     LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
                     float colorMarker = event.getColorMarker();
 
@@ -126,10 +139,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                             startActivity(intent);
                         }
                     });
-                }
+               }
 
             }
-
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());

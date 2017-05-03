@@ -6,6 +6,10 @@
     android:fitsSystemWindows="true"
     android:layout_marginTop="55dp">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -25,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="Nom de l'évenement"
+                android:inputType="textPersonName"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
                 android:imeOptions="actionNext"/>
@@ -39,6 +44,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:inputType="textPersonName"
                 android:hint="Adresse de l'évenement"
                 android:imeOptions="actionNext"
                 android:textColor="@android:color/white"
@@ -76,7 +82,7 @@
                 android:id="@+id/br2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="musé"
+                android:text="musée"
                 android:textColor="@color/btn_login_bg" />
 
             <RadioButton
@@ -92,16 +98,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Date de l'évenement (jj/mm/aaaa)"
+                android:inputType="date"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:imeOptions="actionNext"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/etDescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Description de l'évenement"
+            android:inputType="textPersonName"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:imeOptions="actionDone"/>
     </android.support.design.widget.TextInputLayout>
+
 
         <Button
             android:id="@+id/bCreerEvent"
@@ -114,6 +138,7 @@
             android:textSize="15dp"
             android:onClick="onButtonClicked"/>
     </LinearLayout>
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progressBar"
