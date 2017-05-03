@@ -114,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
         String email = userFromRegistration.getEmail();
         String userId = userFromRegistration.getUid();
 
-        User user = new User(username, email, "https://firebasestorage.googleapis.com/v0/b/project--7669949180488281577.appspot.com/o/PhotosUser%2Flogommbon.jpg?alt=media&token=9b96b452-f67d-45f9-993a-740617e5915f");
+        User user = new User(username, email);
 
         mdatabase.child("users").child(userId).setValue(user);
     }
