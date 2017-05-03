@@ -15,6 +15,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.boolPro=false;
+        this.uriUser="https://firebasestorage.googleapis.com/v0/b/project--7669949180488281577.appspot.com/o/PhotosUser%2Flogommbon.jpg?alt=media&token=9b96b452-f67d-45f9-993a-740617e5915f";
     }
 
 
