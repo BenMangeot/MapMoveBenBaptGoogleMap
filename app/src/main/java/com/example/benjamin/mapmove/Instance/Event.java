@@ -10,11 +10,6 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.io.Serializable;
 
-import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE;
-import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN;
-import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED;
-import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_YELLOW;
-
 /**
  * Created by LestavelBaptiste on 09/02/2017.
  */
@@ -28,6 +23,16 @@ public class Event implements Serializable {
     public String descriptionEvent;
     public String adress;
     public String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
 
     public String getDescriptionEvent() {
         return descriptionEvent;
@@ -69,7 +74,7 @@ public class Event implements Serializable {
         return nameEvent;
     }
 
-    public Event(){ // Obligatoire pr firebase même si grisé/non-utilisé
+    public Event(){ // Obligatoir pr firebase même si grisé/non-utilisé
     }
 
     public Event(Double lat, Double lg, String nameEvent, String descriptionEvent, String adress, String type){
@@ -78,7 +83,7 @@ public class Event implements Serializable {
         this.nameEvent=nameEvent;
         this.descriptionEvent=descriptionEvent;
         this.adress = adress;
-        this.type= type;
+        this.type = type;
     }
 
     public Event(String nameEvent, String descriptionEvent, String adress, String uriEvent) {
@@ -94,33 +99,5 @@ public class Event implements Serializable {
 
     public void setUriEvent(String uriEvent) {
         this.uriEvent = uriEvent;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public float getCouleurMarker(){
-        float couleur=HUE_RED;
-        switch (this.type){
-            case "soirée":
-                couleur=HUE_AZURE;
-                break;
-            case "theatre":
-                couleur=HUE_GREEN;
-                break;
-            case "musée":
-                couleur=HUE_RED;
-                break;
-            case "concert":
-                couleur=HUE_YELLOW;
-                break;
-        }
-
-        return couleur;
     }
 }
