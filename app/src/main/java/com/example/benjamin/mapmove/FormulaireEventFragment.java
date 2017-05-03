@@ -25,18 +25,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
-import com.example.benjamin.mapmove.Instance.User;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -46,8 +40,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Locale;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.android.volley.VolleyLog.TAG;
@@ -67,8 +59,7 @@ public class FormulaireEventFragment extends Fragment {
     private static final int GALLERY_INTENT = 2;
     Uri imageUri = null;
     private ProgressDialog mProgressDialog;
-    private User mUser;
-    FirebaseUser fbUser;
+
     private static RadioGroup radioGroup;
     private static RadioButton radioButton;
 
@@ -80,6 +71,7 @@ public class FormulaireEventFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_formulaire_event, container, false);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("events");
         mStorage = FirebaseStorage.getInstance().getReference();
 
         etNameEvent = (EditText) view.findViewById(R.id.etNameEvent);
@@ -91,24 +83,6 @@ public class FormulaireEventFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getActivity());
         radioGroup = (RadioGroup) view.findViewById(R.id.rg);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        fbUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        /* MODIFICATION DE L'INTERFACE A PARTIR DE LA BDD */
-        mDatabase.child("users").child(fbUser.getUid()).addValueEventListener(new ValueEventListener() {
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                mUser = dataSnapshot.getValue(User.class);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-        /* --FIN--MODIFICATION A PARTIR DE LA BDD */
-
-
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("events");
         ibSelectImage.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
@@ -125,7 +99,6 @@ public class FormulaireEventFragment extends Fragment {
         bCreerEvent.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
-
                                                new CreateEvent().execute();
                                                Toast.makeText(getActivity(),"L'évenement a bien été crée !",Toast.LENGTH_SHORT).show();
                                                mMapFragment = MapFragment.newInstance();
@@ -223,8 +196,8 @@ public class FormulaireEventFragment extends Fragment {
                 int selectId = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) getView().findViewById(selectId);
                 String type = (String) radioButton.getText();
-                System.out.println(mUser.getUsername());
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type, mUser.getUsername());
+
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }
