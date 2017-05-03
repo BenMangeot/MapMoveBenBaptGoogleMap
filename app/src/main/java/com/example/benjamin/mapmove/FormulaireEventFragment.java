@@ -198,7 +198,6 @@ public class FormulaireEventFragment extends Fragment {
                 int selectId = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) getView().findViewById(selectId);
                 String type = (String) radioButton.getText();
-
                 String date = dateEvent.getText().toString();
 
                 Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type, date);
