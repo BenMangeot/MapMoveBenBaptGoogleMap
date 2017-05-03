@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,9 @@ public class FormulaireEventFragment extends Fragment {
     Uri imageUri = null;
     private ProgressDialog mProgressDialog;
 
+    private static RadioGroup radioGroup;
+    private static RadioButton radioButton;
+
 
 
     @Nullable
@@ -76,7 +81,7 @@ public class FormulaireEventFragment extends Fragment {
         ibSelectImage = (ImageButton) view.findViewById(R.id.ibSelectImage);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mProgressDialog = new ProgressDialog(getActivity());
-
+        radioGroup = (RadioGroup) view.findViewById(R.id.rg);
 
         ibSelectImage.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -180,14 +185,19 @@ public class FormulaireEventFragment extends Fragment {
             else {
                 String addressName = "";
                 for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    addressName += " --- " + address.getAddressLine(i);
+                    addressName += " ; " + address.getAddressLine(i);
                 }
                 progressBar.setVisibility(View.INVISIBLE);
 
                 String nameEvent = etNameEvent.getText().toString();
                 String descriptionEvent = etDescription.getText().toString();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName);
+
+                int selectId = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) getView().findViewById(selectId);
+                String type = (String) radioButton.getText();
+
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }

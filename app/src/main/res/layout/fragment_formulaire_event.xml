@@ -52,34 +52,39 @@
             android:id="@+id/ibSelectImage" />
 
         <RadioGroup
+            android:id="@+id/rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
 
             <RadioButton
-                android:id="@+id/radioButton4"
+                android:id="@+id/br4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="soirée" />
+                android:layout_height="50dp"
+                android:text="soirée"
+                android:textColor="@color/btn_login_bg" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/br3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="theatre" />
+                android:layout_height="50dp"
+                android:text="theatre"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/br2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="musé" />
+                android:layout_height="50dp"
+                android:text="musé"
+                android:textColor="@color/btn_login_bg" />
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/br1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="concert" />
+                android:layout_height="50dp"
+                android:text="concert"
+                android:textColor="@color/btn_login_bg" />
 
         </RadioGroup>
 
