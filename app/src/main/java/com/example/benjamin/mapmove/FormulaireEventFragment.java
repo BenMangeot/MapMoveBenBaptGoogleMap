@@ -187,7 +187,7 @@ public class FormulaireEventFragment extends Fragment {
                 String nameEvent = etNameEvent.getText().toString();
                 String descriptionEvent = etDescription.getText().toString();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName);
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName, 1);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }
