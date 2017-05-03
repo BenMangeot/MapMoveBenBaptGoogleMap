@@ -10,6 +10,12 @@ import com.google.firebase.database.DataSnapshot;
 
 import java.io.Serializable;
 
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_AZURE;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_ORANGE;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_RED;
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_YELLOW;
+
 /**
  * Created by LestavelBaptiste on 09/02/2017.
  */
@@ -100,4 +106,26 @@ public class Event implements Serializable {
     public void setUriEvent(String uriEvent) {
         this.uriEvent = uriEvent;
     }
+
+    public float getColorMarker(){
+        float color=HUE_RED;
+        switch (this.type) {
+
+            case "soirée":
+                color = HUE_AZURE;
+                break;
+            case "musée":
+                color = HUE_GREEN;
+                break;
+            case "concert":
+                color = HUE_ORANGE;
+                break;
+            case "theatre":
+                color = HUE_YELLOW;
+                break;
+        }
+            return color;
+
+    }
+
 }

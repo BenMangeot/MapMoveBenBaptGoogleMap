@@ -96,7 +96,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                     /* On crée un marqueur par event */
                     Event event = postSnapshot.getValue(Event.class);
                     LatLng posEvent =  new LatLng(event.getLat(), event.getLg());
-                    float colorMarker = event.getCouleurMarker();
+                    float colorMarker = event.getColorMarker();
 
                     Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                             .position(posEvent).title(event.getNameEvent())
