@@ -22,6 +22,7 @@ import static com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_YELL
 
 public class Event implements Serializable {
 
+
     public Double lat;
     public Double lg;
     public String nameEvent;
