@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -62,7 +64,7 @@ public class FormulaireEventFragment extends Fragment {
 
     private static RadioGroup radioGroup;
     private static RadioButton radioButton;
-
+    private EditText dateEvent;
 
 
     @Nullable
@@ -82,6 +84,8 @@ public class FormulaireEventFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mProgressDialog = new ProgressDialog(getActivity());
         radioGroup = (RadioGroup) view.findViewById(R.id.rg);
+        dateEvent = (EditText) view.findViewById(R.id.date);
+
 
         ibSelectImage.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -105,8 +109,6 @@ public class FormulaireEventFragment extends Fragment {
                                            }
                                        }
         );
-
-
 
         return view;
     }
@@ -185,7 +187,7 @@ public class FormulaireEventFragment extends Fragment {
             else {
                 String addressName = "";
                 for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    addressName += " ; " + address.getAddressLine(i);
+                    addressName += "  " + address.getAddressLine(i);
                 }
                 progressBar.setVisibility(View.INVISIBLE);
 
@@ -197,7 +199,9 @@ public class FormulaireEventFragment extends Fragment {
                 radioButton = (RadioButton) getView().findViewById(selectId);
                 String type = (String) radioButton.getText();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type);
+                String date = dateEvent.getText().toString();
+
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type, date);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }
