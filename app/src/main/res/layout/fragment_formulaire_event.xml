@@ -36,20 +36,52 @@
 
             <EditText
                 android:id="@+id/addressEdit"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:hint="Adresse de l'évenement"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-                android:imeOptions="actionNext"/>
-    </android.support.design.widget.TextInputLayout>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Adresse de l'évenement"
+                android:imeOptions="actionNext"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+        </android.support.design.widget.TextInputLayout>
 
         <ImageButton
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="174dp"
             app:srcCompat="@mipmap/add_btn"
             android:id="@+id/ibSelectImage" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="soirée" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="theatre" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="musé" />
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="concert" />
+
+        </RadioGroup>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
