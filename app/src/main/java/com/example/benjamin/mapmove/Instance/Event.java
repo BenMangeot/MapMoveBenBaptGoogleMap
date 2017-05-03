@@ -31,6 +31,15 @@ public class Event implements Serializable {
     public String adress;
     public String type;
     public String date;
+    public String userPro;
+
+    public String getUserPro() {
+        return userPro;
+    }
+
+    public void setUserPro(String userPro) {
+        this.userPro = userPro;
+    }
 
     public String getDate() {
         return date;
@@ -93,7 +102,7 @@ public class Event implements Serializable {
     public Event(){ // Obligatoir pr firebase même si grisé/non-utilisé
     }
 
-    public Event(Double lat, Double lg, String nameEvent, String descriptionEvent, String adress, String type, String date){
+    public Event(Double lat, Double lg, String nameEvent, String descriptionEvent, String adress, String type, String date, String userPro){
         this.lat = lat;
         this.lg = lg;
         this.nameEvent=nameEvent;
@@ -101,6 +110,7 @@ public class Event implements Serializable {
         this.adress = adress;
         this.type = type;
         this.date = date;
+        this.userPro = userPro;
     }
 
     public Event(String nameEvent, String descriptionEvent, String adress, String uriEvent) {
