@@ -11,6 +11,18 @@
         android:background="@color/common_google_signin_btn_text_dark_pressed"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/nomOrga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textSize="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorLink="@color/common_google_signin_btn_text_light_pressed"
+            android:textStyle="bold"
+            tools:text="title" />
+
+
         <ImageView
             android:id="@+id/uriEvent"
             android:layout_width="match_parent"
@@ -23,6 +35,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textAlignment="center"
+            android:textSize="20dp"
             android:textColor="#000"
             android:textColorLink="@color/common_google_signin_btn_text_light_pressed"
             android:textStyle="bold"
@@ -45,6 +58,26 @@
             android:textAlignment="center"
             android:textColor="#000"
             tools:text="address" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/debut"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/fin"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
     </LinearLayout>
 

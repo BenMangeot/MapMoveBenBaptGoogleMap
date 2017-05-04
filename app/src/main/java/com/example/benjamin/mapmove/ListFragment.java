@@ -80,6 +80,9 @@ public class ListFragment extends Fragment {
                 viewHolder.setDesc(model.getDescriptionEvent());
                 viewHolder.setAdress(model.getAdress());
                 viewHolder.setImage(getContext(), model.getUriEvent());
+                viewHolder.setDebut(model.getDebut());
+                viewHolder.setFin(model.getFin());
+                viewHolder.setOrga(model.getUserPro());
             }
         };
 
@@ -115,5 +118,21 @@ public class ListFragment extends Fragment {
             Picasso.with(ctx).load(image).into(list_image);
 
         }
+
+        public void setDebut(String sDebut){
+            TextView list_debut = (TextView) mView.findViewById(R.id.debut);
+            list_debut.setText("Début de lévenment : " + sDebut);
+        }
+
+        public void setFin(String sFin){
+            TextView list_address = (TextView) mView.findViewById(R.id.fin);
+            list_address.setText("Fin de l'évenement : " + sFin);
+        }
+
+        public void setOrga(String orga){
+            TextView list_orga = (TextView) mView.findViewById(R.id.nomOrga);
+            list_orga.setText("Evenement créé par : " + orga);
+        }
+
     }
 }

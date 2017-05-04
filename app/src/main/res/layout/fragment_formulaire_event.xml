@@ -114,6 +114,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <EditText
+                android:id="@+id/heureDebut"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="heure du début de l'evenement (hh:mm)"
+                android:inputType="datetime"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:imeOptions="actionNext"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/heureFin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="heure de fin de l'evenement (hh:mm)"
+                android:inputType="datetime"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:imeOptions="actionNext"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/etDescription"
             android:layout_width="fill_parent"

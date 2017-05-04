@@ -29,6 +29,14 @@ public class MyInfoWindowMarker implements GoogleMap.InfoWindowAdapter {
         Event event = (Event) marker.getTag();
         TextView tvTitle=(TextView)myContentsView.findViewById(R.id.titleEvent);
         TextView tvDescription=(TextView)myContentsView.findViewById(R.id.coucou);
+        TextView tvDebut = (TextView) myContentsView.findViewById(R.id.debut);
+        TextView tvFin = (TextView) myContentsView.findViewById(R.id.fin);
+
+      //  float v = event.getColorMarker();
+
+        tvDebut.setText("début : " + event.getDebut());
+       // tvDebut.setTextColor((int) v);
+        tvFin.setText("fin : " + event.getFin());
         tvTitle.setText(event.getNameEvent());
         tvDescription.setText(event.getType());
 

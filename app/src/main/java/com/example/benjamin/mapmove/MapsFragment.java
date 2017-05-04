@@ -30,7 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback{
@@ -99,13 +101,57 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
                     long cdate = System.currentTimeMillis();
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat hours = new SimpleDateFormat("HH:mm");
+
+                    String dataHour = hours.format(cdate);
+
+
+                    Date h = null;
+                    try {
+                        h = hours.parse(dataHour);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    dataHour = dataHour.intern();
+
+
                     String dataString = sdf.format(cdate);
                     dataString = dataString.intern();
 
                     Event event = postSnapshot.getValue(Event.class);
                     String datac = event.getDate().intern();
 
-                   if (datac == dataString){
+                    String debut = event.getDebut().intern();
+
+                 ;
+                    Date  d = null;
+                    try {
+                        d = hours.parse(debut);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    String fin = event.getFin().intern();
+
+                    Date f = null;
+                    try {
+                        f = hours.parse(fin);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.println(dataHour);
+                    System.out.println(d);
+                    System.out.println(f);
+                    System.out.println(h);
+                    System.out.println(h.compareTo(f));
+                    System.out.println(h.compareTo(d));
+
+
+
+                    if (datac == dataString && h.compareTo(d)>0 && h.compareTo(f)<0){
 
 
                     LatLng posEvent =  new LatLng(event.getLat(), event.getLg());

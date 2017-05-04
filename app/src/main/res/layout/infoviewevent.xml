@@ -16,15 +16,35 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="#ff000000"
-            android:textSize="14dp"
+            android:textSize="20dp"
             android:textStyle="bold"/>
         <TextView
-            android:id="@+id/coucou"
+        android:id="@+id/coucou"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/debut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="#ff7f7f7f"
             android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/fin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#ff7f7f7f"
+            android:textSize="14dp"/>
+
+
     </LinearLayout>
 </LinearLayout>

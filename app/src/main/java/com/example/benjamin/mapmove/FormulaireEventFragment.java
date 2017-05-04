@@ -74,6 +74,8 @@ public class FormulaireEventFragment extends Fragment {
     private static RadioGroup radioGroup;
     private static RadioButton radioButton;
     private EditText dateEvent;
+    private EditText debutEvent;
+    private EditText finEvent;
 
 
     @Nullable
@@ -93,6 +95,8 @@ public class FormulaireEventFragment extends Fragment {
         mProgressDialog = new ProgressDialog(getActivity());
         radioGroup = (RadioGroup) view.findViewById(R.id.rg);
         dateEvent = (EditText) view.findViewById(R.id.date);
+        debutEvent = (EditText) view.findViewById(R.id.heureDebut) ;
+        finEvent = (EditText) view.findViewById(R.id.heureFin);
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -228,8 +232,10 @@ public class FormulaireEventFragment extends Fragment {
                 String type = (String) radioButton.getText();
 
                 String date = dateEvent.getText().toString();
+                String debut = debutEvent.getText().toString();
+                String fin = finEvent.getText().toString();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername());
+                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
                 if(uriEvent != null){
                     event.setUriEvent(uriEvent.toString());
                 }
