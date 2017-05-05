@@ -34,9 +34,9 @@ public class MyInfoWindowMarker implements GoogleMap.InfoWindowAdapter {
 
       //  float v = event.getColorMarker();
 
-        tvDebut.setText("début : " + event.getDebut());
+        tvDebut.setText("débute à : " + event.getDebut());
        // tvDebut.setTextColor((int) v);
-        tvFin.setText("fin : " + event.getFin());
+        tvFin.setText("fini à : " + event.getFin());
         tvTitle.setText(event.getNameEvent());
         tvDescription.setText(event.getType());
 

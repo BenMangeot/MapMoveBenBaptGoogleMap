@@ -16,31 +16,36 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
         tools:context="com.example.benjamin.mapmove.DetailEventFragment"
         android:orientation="vertical"
         android:weightSum="1" >
 
+        <TextView
+            android:id="@+id/tvTitreEvent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="207dp"
-            app:srcCompat="@drawable/common_full_open_on_phone"
+            android:layout_height="100dp"
+            app:srcCompat="@mipmap/add_btn"
             android:id="@+id/ivEvent"
             android:layout_weight="0.27"
             android:layout_marginTop="60dp"
+            android:layout_marginBottom="60dp"
+
             />
 
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvTitreEvent"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="normal|bold"
-            android:layout_marginTop="40dp"
-            />
+
 
         <TextView
             android:text="TextView"
@@ -48,7 +53,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvAddress"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="16sp"
+            android:layout_margin="10dp"
             android:textStyle="normal|italic" />
 
 
@@ -59,7 +66,35 @@
             android:id="@+id/tvDescription"
             android:textAlignment="center"
             android:textSize="16sp"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
             android:textStyle="normal" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/debut"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/fin"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
         <TextView
             android:text="TextView"
@@ -67,8 +102,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvCreatore"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="normal" />
+            android:layout_margin="10dp"
+            android:textStyle="italic" />
 
 
 

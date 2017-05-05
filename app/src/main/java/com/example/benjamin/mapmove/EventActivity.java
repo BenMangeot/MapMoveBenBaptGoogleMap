@@ -20,7 +20,7 @@ public class EventActivity extends AppCompatActivity {
 
     private static final String DESCRIBABLE_KEY = "describable_key";
     private Event mEvent;
-    private TextView tvNameEvent, tvDescription, tvCreator;
+    private TextView tvNameEvent, tvDescription, tvCreator, hdebut, hfin;
     private ImageView ivEvent;
 
 
@@ -56,7 +56,10 @@ public class EventActivity extends AppCompatActivity {
         tvDescription.setText(mEvent.getAdress());
         tvCreator = (TextView) findViewById(R.id.tvCreatore);
         tvCreator.setText("Cet événement a été créé par "+mEvent.getUserPro());
-
+        hdebut = (TextView) findViewById(R.id.debut);
+        hdebut.setText("débute à : " + mEvent.getDebut());
+        hfin = (TextView) findViewById(R.id.fin);
+        hfin.setText("fini à : " + mEvent.getFin());
 
 
         Picasso.with(this).load(mEvent.getUriEvent().toString()).into(ivEvent);

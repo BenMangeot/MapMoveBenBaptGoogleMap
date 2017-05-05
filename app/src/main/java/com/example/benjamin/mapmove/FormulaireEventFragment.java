@@ -1,6 +1,5 @@
 package com.example.benjamin.mapmove;
 
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Address;
@@ -8,8 +7,6 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,14 +19,11 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
 import com.example.benjamin.mapmove.Instance.User;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,15 +35,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.android.volley.VolleyLog.TAG;
@@ -226,10 +215,11 @@ public class FormulaireEventFragment extends Fragment {
                 String nameEvent = etNameEvent.getText().toString();
                 String descriptionEvent = etDescription.getText().toString();
 
-
+                String type = null;
                 int selectId = radioGroup.getCheckedRadioButtonId();
                 radioButton = (RadioButton) getView().findViewById(selectId);
-                String type = (String) radioButton.getText();
+                type = (String) radioButton.getText();
+
 
                 String date = dateEvent.getText().toString();
                 String debut = debutEvent.getText().toString();

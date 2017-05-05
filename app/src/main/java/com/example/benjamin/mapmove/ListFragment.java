@@ -121,12 +121,12 @@ public class ListFragment extends Fragment {
 
         public void setDebut(String sDebut){
             TextView list_debut = (TextView) mView.findViewById(R.id.debut);
-            list_debut.setText("Début de lévenment : " + sDebut);
+            list_debut.setText("Débute à : " + sDebut);
         }
 
         public void setFin(String sFin){
             TextView list_address = (TextView) mView.findViewById(R.id.fin);
-            list_address.setText("Fin de l'évenement : " + sFin);
+            list_address.setText("Fini à : " + sFin);
         }
 
         public void setOrga(String orga){
