@@ -99,11 +99,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
 
                     /* On crée un marqueur par event */
 
-                    long cdate = System.currentTimeMillis();
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     SimpleDateFormat hours = new SimpleDateFormat("HH:mm");
 
-                    String dataHour = hours.format(cdate);
+
+                    long cdate = System.currentTimeMillis(); // on récupère l'heure actuel
+                    String dataHour = hours.format(cdate); //On la transforme en String
 
 
                     Date h = null;
@@ -113,7 +114,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                         e.printStackTrace();
                     }
 
-                    dataHour = dataHour.intern();
 
 
                     String dataString = sdf.format(cdate);
