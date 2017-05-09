@@ -2,6 +2,8 @@ package com.example.benjamin.mapmove;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference mDatabase;
     private NavigationView navigationView;
     User mUser;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* INITIALISATION DES XML "CONSTANTS" */
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* INITIALISATION DU FRAGMENT PRINCIPALE PAR L'INTERFACE CARTE */
         setFragToMaps();
+        /* </INITIALISATION DU FRAGMENT PRINCIPALE PAR L'INTERFACE CARTE */
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -129,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             signOut();
         }  else if (id == R.id.nav_creer_event) {
             setFragToFormEvent();
+        } else if (id == R.id.nav_gerer_event) {
+            setFragToGererEvent();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -167,16 +173,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    private void setFragToList(){
-        ListFragment fragment = new ListFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-    }
-
-    private void setFragToSettings(){
-        SettingsFragment fragment = new SettingsFragment();
+    private void setFragToGererEvent(){
+        GererEventFragment fragment = new GererEventFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -196,6 +194,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(user.getBoolPro()==true) {
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.nav_creer_event).setVisible(true);
+            nav_Menu.findItem(R.id.nav_gerer_event).setVisible(true);
+            toolbar.setSubtitle("For Pro");
+            toolbar.setSubtitleTextColor(getResources().getColor(R.color.orange));
         }
     }
 }

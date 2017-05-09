@@ -89,7 +89,7 @@ public class ListFragment extends Fragment {
         mRecycler.setAdapter(firebaseRecyclerAdapter);
     }
 
-    public static class ListViewHolder extends RecyclerView.ViewHolder {
+    private static class ListViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 
@@ -133,6 +133,5 @@ public class ListFragment extends Fragment {
             TextView list_orga = (TextView) mView.findViewById(R.id.nomOrga);
             list_orga.setText("Evenement créé par : " + orga);
         }
-
     }
 }
