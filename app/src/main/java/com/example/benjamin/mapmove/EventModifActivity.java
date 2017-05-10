@@ -1,29 +1,516 @@
 package com.example.benjamin.mapmove;
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.example.benjamin.mapmove.Instance.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class EventModifActivity extends AppCompatActivity {
+    private Button btnChangeTitle, btnChangeDescription, btnChangeHeureDebut, btnChangeHeureFin,
+            btnChangeDate, btnRemove, changeTitle, changeDescription, changeHeureDebut, changeHeureFin,
+            changeDate;
+
+    private EditText newTitle, newDescription, newDate, newHeureFin, newHeureDebut;
+    private ProgressBar progressBar;
+    private FirebaseAuth.AuthStateListener authListener;
+    private FirebaseAuth auth;
+    private DatabaseReference mdatabase;
+    private Event eventToModif;
+    private String mKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_modif);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        /*[ INIT FIREBASE ] */
+        auth = FirebaseAuth.getInstance();
+        mdatabase = FirebaseDatabase.getInstance().getReference();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*[ FIN INIT FIREBASE ] */
+
+        /*[ RECUPERATION DE L'EVENT A MODIF] */
+        eventToModif = (Event) getIntent().getExtras().getSerializable("my_event");
+        /*[ FIN RECUPERATION DE L'EVENT A MODIF] */
+
+        getKeyEvent(eventToModif);
+
+
+
+
+        authListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    startActivity(new Intent(EventModifActivity.this, LoginActivity.class));
+                    finish();
+                }
+            }
+        };
+
+        /*[ INIT XML FIND VIEW BY ID ] */
+        changeTitle = (Button) findViewById(R.id.changeTitle);
+        changeDescription = (Button) findViewById(R.id.changeDescription);
+        changeDate = (Button) findViewById(R.id.changeDate);
+        changeHeureDebut = (Button) findViewById(R.id.changeHeureDebut);
+        changeHeureFin = (Button) findViewById(R.id.changeHeureFin);
+
+        btnChangeTitle = (Button) findViewById(R.id.btn_change_title);
+        btnChangeDescription = (Button) findViewById(R.id.btn_change_descriptionn);
+        btnChangeDate = (Button) findViewById(R.id.btn_change_date);
+        btnChangeHeureDebut = (Button) findViewById(R.id.btn_change_heure_debut);
+        btnChangeHeureFin = (Button) findViewById(R.id.btn_change_heure_fin);
+        btnRemove = (Button) findViewById(R.id.btn_remove_event);
+
+
+
+        newTitle = (EditText) findViewById(R.id.new_title);
+        newDescription = (EditText) findViewById(R.id.new_description);
+        newDate = (EditText) findViewById(R.id.new_date);
+        newHeureDebut = (EditText) findViewById(R.id.new_heure_debut);
+        newHeureFin = (EditText) findViewById(R.id.new_heure_fin);
+
+        changeTitle.setVisibility(View.GONE);
+        changeDescription.setVisibility(View.GONE);
+        changeDate.setVisibility(View.GONE);
+        changeHeureDebut.setVisibility(View.GONE);
+        changeHeureFin.setVisibility(View.GONE);
+
+        newTitle.setVisibility(View.GONE);
+        newDescription.setVisibility(View.GONE);
+        newDate.setVisibility(View.GONE);
+        newHeureDebut.setVisibility(View.GONE);
+        newHeureFin.setVisibility(View.GONE);
+
+
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
+        /*[ FIN XML FIND VIEW BY ID ] */
+
+
+        btnChangeTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTitle.setVisibility(View.VISIBLE);
+                changeDescription.setVisibility(View.GONE);
+                changeDate.setVisibility(View.GONE);
+                changeHeureDebut.setVisibility(View.GONE);
+                changeHeureFin.setVisibility(View.GONE);
+
+                newTitle.setVisibility(View.VISIBLE);
+                newDescription.setVisibility(View.GONE);
+                newDate.setVisibility(View.GONE);
+                newHeureDebut.setVisibility(View.GONE);
+                newHeureFin.setVisibility(View.GONE);
+
+            }
+        });
+
+        btnChangeDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTitle.setVisibility(View.GONE);
+                changeDescription.setVisibility(View.VISIBLE);
+                changeDate.setVisibility(View.GONE);
+                changeHeureDebut.setVisibility(View.GONE);
+                changeHeureFin.setVisibility(View.GONE);
+
+                newTitle.setVisibility(View.GONE);
+                newDescription.setVisibility(View.VISIBLE);
+                newDate.setVisibility(View.GONE);
+                newHeureDebut.setVisibility(View.GONE);
+                newHeureFin.setVisibility(View.GONE);
+
+            }
+        });
+
+        btnChangeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTitle.setVisibility(View.GONE);
+                changeDescription.setVisibility(View.GONE);
+                changeDate.setVisibility(View.VISIBLE);
+                changeHeureDebut.setVisibility(View.GONE);
+                changeHeureFin.setVisibility(View.GONE);
+
+                newTitle.setVisibility(View.GONE);
+                newDescription.setVisibility(View.GONE);
+                newDate.setVisibility(View.VISIBLE);
+                newHeureDebut.setVisibility(View.GONE);
+                newHeureFin.setVisibility(View.GONE);
+
+            }
+        });
+
+        btnChangeHeureDebut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTitle.setVisibility(View.GONE);
+                changeDescription.setVisibility(View.GONE);
+                changeDate.setVisibility(View.GONE);
+                changeHeureDebut.setVisibility(View.VISIBLE);
+                changeHeureFin.setVisibility(View.GONE);
+
+                newTitle.setVisibility(View.GONE);
+                newDescription.setVisibility(View.GONE);
+                newDate.setVisibility(View.GONE);
+                newHeureDebut.setVisibility(View.VISIBLE);
+                newHeureFin.setVisibility(View.GONE);
+            }
+        });
+
+        btnChangeHeureFin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeTitle.setVisibility(View.GONE);
+                changeDescription.setVisibility(View.GONE);
+                changeDate.setVisibility(View.GONE);
+                changeHeureDebut.setVisibility(View.GONE);
+                changeHeureFin.setVisibility(View.VISIBLE);
+
+                newTitle.setVisibility(View.GONE);
+                newDescription.setVisibility(View.GONE);
+                newDate.setVisibility(View.GONE);
+                newHeureDebut.setVisibility(View.GONE);
+                newHeureFin.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                  }
+        });
+
+        changeTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                eventToModif.setNameEvent(newTitle.getText().toString().trim());
+
+                if (eventToModif != null && !newTitle.getText().toString().trim().equals("")) {
+                    updateEvent(eventToModif);
+                    Toast.makeText(EventModifActivity.this, "Le titre de l'événement a bien été modifié.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
+                    finish();
+                    progressBar.setVisibility(View.GONE);
+                } else if (newTitle.getText().toString().trim().equals("")) {
+                    newTitle.setError("Entrez un titre");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        changeDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                eventToModif.setDescriptionEvent(newDescription.getText().toString().trim());
+
+                if (eventToModif != null && !newDescription.getText().toString().trim().equals("")) {
+                    updateEvent(eventToModif);
+                    Toast.makeText(EventModifActivity.this, "La Description de l'événement a bien été modifié.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
+                    finish();
+                    progressBar.setVisibility(View.GONE);
+                } else if (newDescription.getText().toString().trim().equals("")) {
+                    newDescription.setError("Entrez une description");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        changeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                eventToModif.setDate(newDate.getText().toString().trim());
+
+                if (eventToModif != null && !newDate.getText().toString().trim().equals("")) {
+                    updateEvent(eventToModif);
+                    Toast.makeText(EventModifActivity.this, "La Date de l'événement a bien été modifié.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
+                    finish();
+                    progressBar.setVisibility(View.GONE);
+                } else if (newDate.getText().toString().trim().equals("")) {
+                    newDescription.setError("Entrez une date");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        changeHeureDebut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                eventToModif.setDebut(newHeureDebut.getText().toString().trim());
+
+                if (eventToModif != null && !newHeureDebut.getText().toString().trim().equals("")) {
+                    updateEvent(eventToModif);
+                    Toast.makeText(EventModifActivity.this, "L'heure de début a bien été modifié.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
+                    finish();
+                    progressBar.setVisibility(View.GONE);
+                } else if (newHeureDebut.getText().toString().trim().equals("")) {
+                    newDescription.setError("Entrez une heure");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        changeHeureFin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                eventToModif.setFin(newHeureFin.getText().toString().trim());
+
+                if (eventToModif != null && !newHeureFin.getText().toString().trim().equals("")) {
+                    updateEvent(eventToModif);
+                    Toast.makeText(EventModifActivity.this, "L'heure de fin a bien été modifié.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
+                    finish();
+                    progressBar.setVisibility(View.GONE);
+                } else if (newHeureFin.getText().toString().trim().equals("")) {
+                    newDescription.setError("Entrez une heure");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+    /*[ FIN ON CREATE ] */
+
+
+
+
+    /**
+        changeTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                if (eventToModif != null && !newTitle.getText().toString().trim().equals("")) {
+                    eventToModif.updateTitle(newTitle.getText().toString().trim())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SettingsActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
+                                        signOut();
+                                        progressBar.setVisibility(View.GONE);
+                                        updateTitle(event);
+                                    } else {
+                                        Toast.makeText(SettingsActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                } else if (newTitle.getText().toString().trim().equals("")) {
+                    newTitle.setError("Entrer un titre");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oldEmail.setVisibility(View.GONE);
+                newEmail.setVisibility(View.GONE);
+                password.setVisibility(View.GONE);
+                newPassword.setVisibility(View.VISIBLE);
+                changeEmail.setVisibility(View.GONE);
+                changePassword.setVisibility(View.VISIBLE);
+                sendEmail.setVisibility(View.GONE);
+                remove.setVisibility(View.GONE);
+            }
+        });
+
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                if (user != null && !newPassword.getText().toString().trim().equals("")) {
+                    if (newPassword.getText().toString().trim().length() < 6) {
+                        newPassword.setError("Password too short, enter minimum 6 characters");
+                        progressBar.setVisibility(View.GONE);
+                    } else {
+                        user.updatePassword(newPassword.getText().toString().trim())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(Eve.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                            signOut();
+                                            progressBar.setVisibility(View.GONE);
+                                        } else {
+                                            Toast.makeText(SettingsActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
+                                    }
+                                });
+                    }
+                } else if (newPassword.getText().toString().trim().equals("")) {
+                    newPassword.setError("Enter password");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btnSendResetEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oldEmail.setVisibility(View.VISIBLE);
+                newEmail.setVisibility(View.GONE);
+                password.setVisibility(View.GONE);
+                newPassword.setVisibility(View.GONE);
+                changeEmail.setVisibility(View.GONE);
+                changePassword.setVisibility(View.GONE);
+                sendEmail.setVisibility(View.VISIBLE);
+                remove.setVisibility(View.GONE);
+            }
+        });
+
+        sendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                if (!oldEmail.getText().toString().trim().equals("")) {
+                    auth.sendPasswordResetEmail(oldEmail.getText().toString().trim())
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(EventModifActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    } else {
+                                        Toast.makeText(EventModifActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                } else {
+                    oldEmail.setError("Enter email");
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btnRemoveUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                if (user != null) {
+                    user.delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(EventModifActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(EventModifActivity.this, RegisterActivity.class));
+                                        finish();
+                                        progressBar.setVisibility(View.GONE);
+                                        deleteUser(user);
+                                    } else {
+                                        Toast.makeText(EventModifActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
+    }
+
+
+    private void deleteUser(FirebaseUser userFromDelete) {
+        String userId = userFromDelete.getUid();
+
+        mdatabase.child("users").child(userId).removeValue();
+    } */
+
+    private void getKeyEvent(Event event) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        Query applesQuery = ref.child("events").orderByChild("nameEvent").equalTo(event.getNameEvent());
+
+        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                    mKey = appleSnapshot.getRef().getKey();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
 
+    private void updateEvent(Event event) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("events").child(mKey).setValue(event);
+    }
+
+    //sign out method
+    private void signOut() {
+        auth.signOut();
+        Intent intent = new Intent(EventModifActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        auth.addAuthStateListener(authListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authListener != null) {
+            auth.removeAuthStateListener(authListener);
+        }
+    }
 }

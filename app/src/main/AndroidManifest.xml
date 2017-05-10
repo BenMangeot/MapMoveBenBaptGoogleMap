@@ -45,10 +45,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".EventActivity" />
         <activity android:name=".RegisterProActivity" />
-        <activity
-            android:name=".EventModifActivity"
-            android:label="@string/title_activity_event_modif"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".EventModifActivity"></activity>
     </application>
 
 </manifest>

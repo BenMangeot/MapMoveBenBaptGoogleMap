@@ -1,33 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.benjamin.mapmove.EventModifActivity">
+    android:fitsSystemWindows="true" tools:openDrawer="start"
+    >
 
-    <android.support.design.widget.AppBarLayout
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+        <EditText
+            android:id="@+id/new_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nouveau titre"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            />
+
+        <EditText
+            android:id="@+id/new_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nouvel email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/new_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="Nouvelle Date"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+        android:id="@+id/new_heure_debut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:focusableInTouchMode="true"
+        android:hint="Nouvelle heure de début"
+        android:imeActionId="@+id/login"
+        android:imeOptions="actionUnspecified"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <EditText
+            android:id="@+id/new_heure_fin"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:hint="Nouvelle heure de fin"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-    </android.support.design.widget.AppBarLayout>
+        <Button
+            android:id="@+id/changeTitle"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Modifiez"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-    <include layout="@layout/content_event_modif" />
+        <Button
+            android:id="@+id/changeDescription"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Modifiez"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        <Button
+            android:id="@+id/changeHeureDebut"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Modifiez"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/changeHeureFin"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Modifiez"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/changeDate"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Modifiez"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_change_title"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_change_title"
+            android:background="@@android:color/white"
+            android:textColor="@color/input_login"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_change_descriptionn"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_change_description"
+            android:background="@@android:color/white"
+            android:textColor="@color/input_login"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_change_date"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_change_date"
+            android:background="@@android:color/white"
+            android:textColor="@color/input_login"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_change_heure_debut"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_change_heure_debut"
+            android:background="@@android:color/white"
+            android:textColor="@color/input_login"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_change_heure_fin"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_change_heure_fin"
+            android:background="@@android:color/white"
+            android:textColor="@color/input_login"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_change_address"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_change_address"
+            android:background="@@android:color/white"
+            android:textColor="@color/input_login"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_remove_event"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/input_login"
+            android:text="@string/btn_remove_event"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+        </LinearLayout>
+
+
+
+
+</android.support.v4.widget.DrawerLayout>

@@ -1,5 +1,6 @@
 package com.example.benjamin.mapmove;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -44,6 +45,7 @@ public class GererEventFragment extends Fragment {
 
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
+    private Activity mActivity;
 
     public GererEventFragment() {}
 
@@ -54,6 +56,7 @@ public class GererEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
+        mActivity = getActivity();
 
         View rootView = inflater.inflate(R.layout.fragment_gerer_event, container, false);
 
@@ -114,16 +117,23 @@ public class GererEventFragment extends Fragment {
                 mDatabase
         ) {
             @Override
-            protected void populateViewHolder(GererEventFragment.ListViewHolder viewHolder, Event model, int position) {
+            protected void populateViewHolder(GererEventFragment.ListViewHolder viewHolder, Event mEvent, int position) {
 
-                viewHolder.setTitle(model.getNameEvent());
-                    viewHolder.setDesc(model.getDescriptionEvent());
-                    viewHolder.setAdress(model.getAdress());
-                    viewHolder.setImage(getContext(), model.getUriEvent());
-                    viewHolder.setDebut(model.getDebut());
-                    viewHolder.setFin(model.getFin());
-                    viewHolder.setModifier();
-                    viewHolder.setSupprimer(model);
+                System.out.println(mEvent.getUserPro());
+                System.out.println(thisUserPro.getUsername());
+
+                if(mEvent.getUserPro().equals(thisUserPro.getUsername())){
+                    viewHolder.setTitle(mEvent.getNameEvent());
+                    viewHolder.setDesc(mEvent.getDescriptionEvent());
+                    viewHolder.setAdress(mEvent.getAdress());
+                    viewHolder.setImage(getContext(), mEvent.getUriEvent());
+                    viewHolder.setDebut(mEvent.getDebut());
+                    viewHolder.setFin(mEvent.getFin());
+                    viewHolder.setModifier(mEvent);
+                    viewHolder.setSupprimer(mEvent);
+                }else{
+                    viewHolder.rien();
+                }
 
             }
         };
@@ -171,12 +181,15 @@ public class GererEventFragment extends Fragment {
             list_address.setText("Fini à : " + sFin);
         }
 
-        public void setModifier(){
+        public void setModifier(final Event eventToModif){
             final TextView modifier = (TextView) mView.findViewById(R.id.tvModifier);
             modifier.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    modifier.setText("COUCOU");
+                    Intent intent = new Intent(mView.getContext(), EventModifActivity.class);
+                    intent.putExtra("my_event", eventToModif);
+                    mView.getContext().startActivity(intent);
+
                 }
             });
         }
