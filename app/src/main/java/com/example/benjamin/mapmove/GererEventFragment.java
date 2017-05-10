@@ -160,7 +160,7 @@ public class GererEventFragment extends Fragment {
 
         public void setImage(Context ctx,String image){
             ImageView list_image = (ImageView) mView.findViewById(R.id.uriEvent);
-            Picasso.with(ctx).load(image).into(list_image);
+            Picasso.with(ctx).load(image).fit().centerCrop().into(list_image);
 
         }
 
