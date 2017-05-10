@@ -1,6 +1,7 @@
 package com.example.benjamin.mapmove;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -87,13 +88,14 @@ public class ListFragment extends Fragment {
 
                 String date = model.getDate().intern();
                 if (date == dataString){
-                viewHolder.setTitle(model.getNameEvent());
-                viewHolder.setDesc(model.getDescriptionEvent());
-                viewHolder.setAdress(model.getAdress());
-                viewHolder.setImage(getContext(), model.getUriEvent());
-                viewHolder.setDebut(model.getDebut());
-                viewHolder.setFin(model.getFin());
-                viewHolder.setOrga(model.getUserPro());
+                    viewHolder.setTitle(model.getNameEvent());
+                    viewHolder.setDesc(model.getDescriptionEvent());
+                    viewHolder.setAdress(model.getAdress());
+                    viewHolder.setImage(getContext(), model.getUriEvent());
+                    viewHolder.setDebut(model.getDebut());
+                    viewHolder.setFin(model.getFin());
+                    viewHolder.setOrga(model.getUserPro());
+                    viewHolder.setClickToDetail(model);
 
             }else { viewHolder.rien();
                 }
@@ -154,6 +156,20 @@ public class ListFragment extends Fragment {
             RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
             param.height = 0;
             param.width = 0;
+        }
+
+        public void setClickToDetail(final Event eventToDetail) {
+            mView.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(mView.getContext(), EventActivity.class);
+                            intent.putExtra("my_event", eventToDetail);
+                            mView.getContext().startActivity(intent);
+                        }
+                    }
+
+            );
         }
     }
 }
