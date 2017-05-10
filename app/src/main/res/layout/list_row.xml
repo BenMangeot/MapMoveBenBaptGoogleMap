@@ -13,79 +13,87 @@
         android:background="@color/colorPrimary"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/nomOrga"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textEnd"
-            android:textSize="10dp"
-            android:padding="3dp"
-            android:textColor="@color/common_google_signin_btn_text_light_pressed"
-            android:textStyle="bold"
-            tools:text="title" />
 
 
-        <ImageView
-            android:id="@+id/uriEvent"
-            android:layout_width="match_parent"
-            android:layout_height="207dp"
-            android:src="@mipmap/add_btn" />
-
-        <TextView
-            android:id="@+id/nameEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:textColorLink="@color/common_google_signin_btn_text_light_pressed"
-            android:textStyle="bold"
-            tools:text="title" />
-
-        <TextView
-            android:id="@+id/descriptionEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:textColor="#fff"
-            tools:text="decription" />
-
-        <TextView
-            android:id="@+id/adress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textAlignment="center"
-            android:textColor="#fff"
-            tools:text="address" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="10dp">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/debut"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textAlignment="center"
-                android:textColor="#fff"
-                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/uriEvent"
+                android:layout_width="105dp"
+                android:layout_height="match_parent" />
 
-
-            <TextView
-                android:id="@+id/fin"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:textAlignment="center"
+                android:orientation="vertical">
 
-                android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/nomOrga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    tools:text="title" />
+
+
+                <TextView
+                    android:id="@+id/nameEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textColorLink="@color/common_google_signin_btn_text_light_pressed"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    tools:text="title" />
+
+                <TextView
+                    android:id="@+id/adress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    tools:text="address" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/debut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/fin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

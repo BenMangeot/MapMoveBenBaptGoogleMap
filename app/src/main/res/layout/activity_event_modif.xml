@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nouveau titre"
-            android:inputType="textEmailAddress"
             android:maxLines="1"
             />
 
@@ -32,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nouvelle description"
-            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -44,7 +42,6 @@
             android:hint="Nouvelle Date"
             android:imeActionId="@+id/login"
             android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -56,7 +53,6 @@
         android:hint="Nouvelle heure de début"
         android:imeActionId="@+id/login"
         android:imeOptions="actionUnspecified"
-        android:inputType="textPassword"
         android:maxLines="1"
         android:singleLine="true" />
 
@@ -68,7 +64,6 @@
             android:hint="Nouvelle heure de fin"
             android:imeActionId="@+id/login"
             android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true" />
 

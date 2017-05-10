@@ -89,7 +89,6 @@ public class ListFragment extends Fragment {
                 String date = model.getDate().intern();
                 if (date == dataString){
                     viewHolder.setTitle(model.getNameEvent());
-                    viewHolder.setDesc(model.getDescriptionEvent());
                     viewHolder.setAdress(model.getAdress());
                     viewHolder.setImage(getContext(), model.getUriEvent());
                     viewHolder.setDebut(model.getDebut());
@@ -118,11 +117,6 @@ public class ListFragment extends Fragment {
                 TextView list_title = (TextView) mView.findViewById(R.id.nameEvent);
                 list_title.setText(title);
             }
-
-        public void setDesc(String desc){
-            TextView list_desc = (TextView) mView.findViewById(R.id.descriptionEvent);
-            list_desc.setText(desc);
-        }
 
         public void setAdress(String address){
             TextView list_address = (TextView) mView.findViewById(R.id.adress);
