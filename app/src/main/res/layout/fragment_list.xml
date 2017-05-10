@@ -13,6 +13,6 @@
         android:background="@color/white"
         android:clipToPadding="false"
         android:padding="5dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"/>
 
 </FrameLayout>

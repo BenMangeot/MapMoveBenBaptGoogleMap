@@ -62,7 +62,7 @@ public class EventActivity extends AppCompatActivity {
         hfin.setText("fini à : " + mEvent.getFin());
 
 
-        Picasso.with(this).load(mEvent.getUriEvent().toString()).into(ivEvent);
+        Picasso.with(this).load(mEvent.getUriEvent().toString()).fit().centerCrop().into(ivEvent);
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.benjamin.mapmove.MapsHelper;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -32,13 +33,24 @@ public class MyInfoWindowMarker implements GoogleMap.InfoWindowAdapter {
         TextView tvDebut = (TextView) myContentsView.findViewById(R.id.debut);
         TextView tvFin = (TextView) myContentsView.findViewById(R.id.fin);
 
-      //  float v = event.getColorMarker();
+       int v = (int) event.getColorMarker();
 
         tvDebut.setText("débute à : " + event.getDebut());
-       // tvDebut.setTextColor((int) v);
         tvFin.setText("fini à : " + event.getFin());
         tvTitle.setText(event.getNameEvent());
         tvDescription.setText(event.getType());
+        if (v == 120){
+        tvDescription.setTextColor(Color.parseColor("#20DD20"));
+        } else if (v == 210){
+            tvDescription.setTextColor(Color.parseColor("#093DFF"));
+        }else if (v == 60) {
+            tvDescription.setTextColor(Color.parseColor("#DACE08"));
+        }else if (v == 30) {
+            tvDescription.setTextColor(Color.parseColor("#FE9A01"));
+        }
+        else {
+            tvDescription.setTextColor(Color.parseColor("#DA0808"));
+        }
 
         return(myContentsView);
     }
