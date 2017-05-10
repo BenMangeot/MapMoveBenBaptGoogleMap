@@ -61,8 +61,6 @@ public class GererEventFragment extends Fragment {
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        View mView=inflater.inflate(R.layout.fragment_gerer_event, container, false);
-
 
         /* RECUPERATION DU USER CO */
         mDatabase.child("users").child(fbUser.getUid()).addValueEventListener(new ValueEventListener() {
