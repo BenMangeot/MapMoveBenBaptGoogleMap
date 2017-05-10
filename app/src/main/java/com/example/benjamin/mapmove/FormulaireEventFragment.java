@@ -135,19 +135,8 @@ public class FormulaireEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        debutEvent.setText( selectedHour + ":" + selectedMinute);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-
+                new TimePickerDialog(getActivity(), hoursDebut, myHours
+                        .get(Calendar.YEAR), myHours.get(Calendar.MONTH), true).show();
             }
         });
 
@@ -156,19 +145,8 @@ public class FormulaireEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        finEvent.setText( selectedHour + ":" + selectedMinute);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-
+                new TimePickerDialog(getActivity(), hoursFin, myHours
+                        .get(Calendar.YEAR), myHours.get(Calendar.MONTH), true).show();
             }
         });
 
@@ -264,6 +242,7 @@ public class FormulaireEventFragment extends Fragment {
     }
 
     Calendar myCalendar = Calendar.getInstance();
+    Calendar myHours = Calendar.getInstance();
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -279,14 +258,59 @@ public class FormulaireEventFragment extends Fragment {
 
     };
 
-
     private void updateLabel() {
 
         String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         dateEvent.setText(sdf.format(myCalendar.getTime()));
     }
+
+    TimePickerDialog.OnTimeSetListener hoursDebut = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            myHours.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            myHours.set(Calendar.MINUTE, minute);
+            updateLabelHoursDebut();
+
+        }
+
+    };
+
+    TimePickerDialog.OnTimeSetListener hoursFin = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            myHours.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            myHours.set(Calendar.MINUTE, minute);
+            updateLabelHoursfin();
+
+        }
+
+    };
+
+
+    private void updateLabelHoursDebut() {
+
+        String myFormat = "HH:mm"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        debutEvent.setText(sdf.format(myHours.getTime()));
+    }
+
+    private void updateLabelHoursfin() {
+
+        String myFormat = "HH:mm"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        finEvent.setText(sdf.format(myHours.getTime()));
+    }
+
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

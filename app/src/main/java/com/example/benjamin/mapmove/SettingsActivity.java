@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //get current user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        System.out.println("user id : " + user.getUid());
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
