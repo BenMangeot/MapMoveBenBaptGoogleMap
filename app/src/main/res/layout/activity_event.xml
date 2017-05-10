@@ -35,17 +35,12 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:srcCompat="@mipmap/add_btn"
+            android:layout_height="250dp"
             android:id="@+id/ivEvent"
-            android:layout_weight="0.27"
+            android:layout_weight="0.43"
             android:layout_marginTop="60dp"
             android:layout_marginBottom="60dp"
-
             />
-
-
-
 
         <TextView
             android:text="TextView"

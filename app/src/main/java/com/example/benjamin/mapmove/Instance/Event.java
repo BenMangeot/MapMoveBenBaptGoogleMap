@@ -26,7 +26,7 @@ public class Event implements Serializable {
     public Double lat;
     public Double lg;
     public String nameEvent;
-    public String uriEvent = null;
+    public String uriEvent = "https://firebasestorage.googleapis.com/v0/b/project--7669949180488281577.appspot.com/o/Photos%2FnoPhoto.png?alt=media&token=da316777-bf20-451c-85c0-fdb11353adcc";
     public String descriptionEvent;
     public String adress;
     public String type;
