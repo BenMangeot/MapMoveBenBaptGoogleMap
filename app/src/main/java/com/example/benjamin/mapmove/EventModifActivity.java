@@ -212,13 +212,9 @@ public class EventModifActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 eventToModif.setNameEvent(newTitle.getText().toString().trim());
-
                 if (eventToModif != null && !newTitle.getText().toString().trim().equals("")) {
-                    updateEvent(eventToModif);
                     Toast.makeText(EventModifActivity.this, "Le titre de l'événement a bien été modifié.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
-                    finish();
-                    progressBar.setVisibility(View.GONE);
+                    updateEvent(eventToModif);
                 } else if (newTitle.getText().toString().trim().equals("")) {
                     newTitle.setError("Entrez un titre");
                     progressBar.setVisibility(View.GONE);
@@ -231,13 +227,9 @@ public class EventModifActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
                 eventToModif.setDescriptionEvent(newDescription.getText().toString().trim());
-
                 if (eventToModif != null && !newDescription.getText().toString().trim().equals("")) {
-                    updateEvent(eventToModif);
                     Toast.makeText(EventModifActivity.this, "La Description de l'événement a bien été modifié.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
-                    finish();
-                    progressBar.setVisibility(View.GONE);
+                    updateEvent(eventToModif);
                 } else if (newDescription.getText().toString().trim().equals("")) {
                     newDescription.setError("Entrez une description");
                     progressBar.setVisibility(View.GONE);
@@ -252,11 +244,8 @@ public class EventModifActivity extends AppCompatActivity {
                 eventToModif.setDate(newDate.getText().toString().trim());
 
                 if (eventToModif != null && !newDate.getText().toString().trim().equals("")) {
-                    updateEvent(eventToModif);
                     Toast.makeText(EventModifActivity.this, "La Date de l'événement a bien été modifié.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
-                    finish();
-                    progressBar.setVisibility(View.GONE);
+                    updateEvent(eventToModif);
                 } else if (newDate.getText().toString().trim().equals("")) {
                     newDescription.setError("Entrez une date");
                     progressBar.setVisibility(View.GONE);
@@ -271,11 +260,8 @@ public class EventModifActivity extends AppCompatActivity {
                 eventToModif.setDebut(newHeureDebut.getText().toString().trim());
 
                 if (eventToModif != null && !newHeureDebut.getText().toString().trim().equals("")) {
-                    updateEvent(eventToModif);
                     Toast.makeText(EventModifActivity.this, "L'heure de début a bien été modifié.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
-                    finish();
-                    progressBar.setVisibility(View.GONE);
+                    updateEvent(eventToModif);
                 } else if (newHeureDebut.getText().toString().trim().equals("")) {
                     newDescription.setError("Entrez une heure");
                     progressBar.setVisibility(View.GONE);
@@ -290,11 +276,8 @@ public class EventModifActivity extends AppCompatActivity {
                 eventToModif.setFin(newHeureFin.getText().toString().trim());
 
                 if (eventToModif != null && !newHeureFin.getText().toString().trim().equals("")) {
-                    updateEvent(eventToModif);
                     Toast.makeText(EventModifActivity.this, "L'heure de fin a bien été modifié.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(EventModifActivity.this, MainActivity.class));
-                    finish();
-                    progressBar.setVisibility(View.GONE);
+                    updateEvent(eventToModif);
                 } else if (newHeureFin.getText().toString().trim().equals("")) {
                     newDescription.setError("Entrez une heure");
                     progressBar.setVisibility(View.GONE);
@@ -305,162 +288,6 @@ public class EventModifActivity extends AppCompatActivity {
     }
     /*[ FIN ON CREATE ] */
 
-
-
-
-    /**
-        changeTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (eventToModif != null && !newTitle.getText().toString().trim().equals("")) {
-                    eventToModif.updateTitle(newTitle.getText().toString().trim())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(SettingsActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
-                                        signOut();
-                                        progressBar.setVisibility(View.GONE);
-                                        updateTitle(event);
-                                    } else {
-                                        Toast.makeText(SettingsActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                } else if (newTitle.getText().toString().trim().equals("")) {
-                    newTitle.setError("Entrer un titre");
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
-
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oldEmail.setVisibility(View.GONE);
-                newEmail.setVisibility(View.GONE);
-                password.setVisibility(View.GONE);
-                newPassword.setVisibility(View.VISIBLE);
-                changeEmail.setVisibility(View.GONE);
-                changePassword.setVisibility(View.VISIBLE);
-                sendEmail.setVisibility(View.GONE);
-                remove.setVisibility(View.GONE);
-            }
-        });
-
-        changePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newPassword.getText().toString().trim().equals("")) {
-                    if (newPassword.getText().toString().trim().length() < 6) {
-                        newPassword.setError("Password too short, enter minimum 6 characters");
-                        progressBar.setVisibility(View.GONE);
-                    } else {
-                        user.updatePassword(newPassword.getText().toString().trim())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(Eve.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
-                                            signOut();
-                                            progressBar.setVisibility(View.GONE);
-                                        } else {
-                                            Toast.makeText(SettingsActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
-                                            progressBar.setVisibility(View.GONE);
-                                        }
-                                    }
-                                });
-                    }
-                } else if (newPassword.getText().toString().trim().equals("")) {
-                    newPassword.setError("Enter password");
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        btnSendResetEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oldEmail.setVisibility(View.VISIBLE);
-                newEmail.setVisibility(View.GONE);
-                password.setVisibility(View.GONE);
-                newPassword.setVisibility(View.GONE);
-                changeEmail.setVisibility(View.GONE);
-                changePassword.setVisibility(View.GONE);
-                sendEmail.setVisibility(View.VISIBLE);
-                remove.setVisibility(View.GONE);
-            }
-        });
-
-        sendEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (!oldEmail.getText().toString().trim().equals("")) {
-                    auth.sendPasswordResetEmail(oldEmail.getText().toString().trim())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(EventModifActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(EventModifActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                } else {
-                    oldEmail.setError("Enter email");
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        btnRemoveUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                if (user != null) {
-                    user.delete()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(EventModifActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(EventModifActivity.this, RegisterActivity.class));
-                                        finish();
-                                        progressBar.setVisibility(View.GONE);
-                                        deleteUser(user);
-                                    } else {
-                                        Toast.makeText(EventModifActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                }
-            }
-        });
-
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
-
-    }
-
-
-    private void deleteUser(FirebaseUser userFromDelete) {
-        String userId = userFromDelete.getUid();
-
-        mdatabase.child("users").child(userId).removeValue();
-    } */
 
     private void getKeyEvent(Event event) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -482,17 +309,10 @@ public class EventModifActivity extends AppCompatActivity {
     private void updateEvent(Event event) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.child("events").child(mKey).setValue(event);
-    }
-
-    //sign out method
-    private void signOut() {
-        auth.signOut();
-        Intent intent = new Intent(EventModifActivity.this, LoginActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(EventModifActivity.this, MainActivity.class));
         finish();
+        progressBar.setVisibility(View.GONE);
     }
-
-
 
     @Override
     protected void onResume() {

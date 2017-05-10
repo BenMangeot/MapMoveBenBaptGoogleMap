@@ -41,24 +41,24 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        /* [START init toolbar ] */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
+        /* [END init toolbar ] */
 
-        //get firebase auth instance
+        /* [START Init FireBase auth, reference et user ] */
         auth = FirebaseAuth.getInstance();
+        System.out.println(auth);
         mdatabase = FirebaseDatabase.getInstance().getReference();
-
-        //get current user
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        /* [END Init FireBase auth, reference et user ] */
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
+                FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+                if (fbUser == null) {
                     startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
                     finish();
                 }
@@ -113,16 +113,17 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newEmail.getText().toString().trim().equals("")) {
-                    user.updateEmail(newEmail.getText().toString().trim())
+                if (fbUser != null && !newEmail.getText().toString().trim().equals("")) {
+                    System.out.println(newEmail.getText().toString().trim());
+                    System.out.println(fbUser.getUid());
+                    fbUser.updateEmail(newEmail.getText().toString().trim())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SettingsActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
-                                        signOut();
                                         progressBar.setVisibility(View.GONE);
-                                        updateEmail(user);
+                                        updateEmailUser(fbUser);
                                     } else {
                                         Toast.makeText(SettingsActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -130,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 }
                             });
                 } else if (newEmail.getText().toString().trim().equals("")) {
-                    newEmail.setError("Enter email");
+                    newEmail.setError("Entrer email");
                     progressBar.setVisibility(View.GONE);
                 }
             }
@@ -154,12 +155,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (user != null && !newPassword.getText().toString().trim().equals("")) {
+                if (fbUser != null && !newPassword.getText().toString().trim().equals("")) {
                     if (newPassword.getText().toString().trim().length() < 6) {
                         newPassword.setError("Password too short, enter minimum 6 characters");
                         progressBar.setVisibility(View.GONE);
                     } else {
-                        user.updatePassword(newPassword.getText().toString().trim())
+                        fbUser.updatePassword(newPassword.getText().toString().trim())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -224,8 +225,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                if (user != null) {
-                    user.delete()
+                if (fbUser != null) {
+                    fbUser.delete()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -234,7 +235,7 @@ public class SettingsActivity extends AppCompatActivity {
                                         startActivity(new Intent(SettingsActivity.this, RegisterActivity.class));
                                         finish();
                                         progressBar.setVisibility(View.GONE);
-                                        deleteUser(user);
+                                        deleteUser(fbUser);
                                     } else {
                                         Toast.makeText(SettingsActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
                                         progressBar.setVisibility(View.GONE);
@@ -260,13 +261,10 @@ public class SettingsActivity extends AppCompatActivity {
         mdatabase.child("users").child(userId).removeValue();
     }
 
-        private void updateEmail(FirebaseUser userFromUpdateEmail) {
+        private void updateEmailUser(FirebaseUser userFromUpdateEmail) {
             final String userId = userFromUpdateEmail.getUid();
             final String newemail = newEmail.getText().toString().trim();
-
             mdatabase.child("users").child(userId).child("email").setValue(newemail);
-
-
         }
 
     //sign out method
