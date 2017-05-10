@@ -40,13 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".EventActivity" />
-        <activity android:name=".RegisterProActivity" />
-        <activity android:name=".EventModifActivity"></activity>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ResetPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EventActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterProActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EventModifActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
