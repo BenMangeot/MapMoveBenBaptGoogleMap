@@ -8,8 +8,15 @@
     android:fitsSystemWindows="true" tools:openDrawer="start"
     >
 
+
+
+
     <include layout="@layout/app_bar_drawer" android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,11 +42,11 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:id="@+id/ivEvent"
             android:layout_weight="0.43"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="45dp"
             />
 
         <TextView
@@ -105,6 +112,8 @@
 
 
     </LinearLayout>
+
+    </ScrollView>
 
 
 
