@@ -193,6 +193,7 @@ public class GererEventFragment extends Fragment {
         }
 
         public void setSupprimer(final Event mEvent){
+
             final TextView supprimer = (TextView) mView.findViewById(R.id.tvSupprimer);
             supprimer.setOnClickListener(new View.OnClickListener() {
                 @Override
