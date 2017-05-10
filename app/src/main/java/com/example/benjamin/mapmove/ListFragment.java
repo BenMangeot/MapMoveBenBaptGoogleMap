@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+
 
 public class ListFragment extends Fragment {
 
@@ -49,6 +51,7 @@ public class ListFragment extends Fragment {
         mRecycler = (RecyclerView) rootView.findViewById(R.id.list);
         mRecycler.setHasFixedSize(true);
         return rootView;
+
     }
 
     @Override
@@ -76,6 +79,14 @@ public class ListFragment extends Fragment {
             @Override
             protected void populateViewHolder(ListViewHolder viewHolder, Event model, int position) {
 
+                long cdate = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                String dataString = sdf.format(cdate);
+                dataString = dataString.intern();
+
+                String date = model.getDate().intern();
+                if (date == dataString){
                 viewHolder.setTitle(model.getNameEvent());
                 viewHolder.setDesc(model.getDescriptionEvent());
                 viewHolder.setAdress(model.getAdress());
@@ -83,7 +94,10 @@ public class ListFragment extends Fragment {
                 viewHolder.setDebut(model.getDebut());
                 viewHolder.setFin(model.getFin());
                 viewHolder.setOrga(model.getUserPro());
-            }
+
+            }else { viewHolder.rien();
+                }
+             }
         };
 
         mRecycler.setAdapter(firebaseRecyclerAdapter);
@@ -115,7 +129,7 @@ public class ListFragment extends Fragment {
 
         public void setImage(Context ctx,String image){
             ImageView list_image = (ImageView) mView.findViewById(R.id.uriEvent);
-            Picasso.with(ctx).load(image).into(list_image);
+            Picasso.with(ctx).load(image).fit().centerCrop().into(list_image);
 
         }
 
@@ -132,7 +146,14 @@ public class ListFragment extends Fragment {
         public void setOrga(String orga){
             TextView list_orga = (TextView) mView.findViewById(R.id.nomOrga);
             list_orga.setText("Evenement créé par : " + orga);
+
         }
 
+        public void rien(){
+            mView.setVisibility(View.GONE);
+            RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
+            param.height = 0;
+            param.width = 0;
+        }
     }
 }

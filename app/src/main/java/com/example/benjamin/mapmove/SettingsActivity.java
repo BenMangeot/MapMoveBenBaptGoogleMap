@@ -260,14 +260,14 @@ public class SettingsActivity extends AppCompatActivity {
         mdatabase.child("users").child(userId).removeValue();
     }
 
-    private void updateEmail(FirebaseUser userFromUpdateEmail) {
-        final String userId = userFromUpdateEmail.getUid();
-        final String newemail = newEmail.getText().toString().trim();
+        private void updateEmail(FirebaseUser userFromUpdateEmail) {
+            final String userId = userFromUpdateEmail.getUid();
+            final String newemail = newEmail.getText().toString().trim();
 
-        mdatabase.child("users").child(userId).child("email").setValue(newemail);
+            mdatabase.child("users").child(userId).child("email").setValue(newemail);
 
 
-    }
+        }
 
     //sign out method
     private void signOut() {

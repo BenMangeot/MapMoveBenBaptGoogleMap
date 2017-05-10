@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +66,9 @@ public class FormulaireEventFragment extends Fragment {
     private EditText dateEvent;
     private EditText debutEvent;
     private EditText finEvent;
+    private String addressName = "";
+    private Double lat;
+    private Double longi;
 
 
     @Nullable
@@ -125,6 +129,60 @@ public class FormulaireEventFragment extends Fragment {
                                            @Override
                                            public void onClick(View view) {
                                                new CreateEvent().execute();
+
+                                               String nameEvent = etNameEvent.getText().toString().trim();
+                                               if (TextUtils.isEmpty(nameEvent)) {
+                                                   Toast.makeText(getActivity(), "Enter le nom de l'évenement", Toast.LENGTH_SHORT).show();
+                                                   return;
+                                               }
+
+                                               String descriptionEvent = etDescription.getText().toString().trim();
+
+
+
+                                               int selectId = radioGroup.getCheckedRadioButtonId();
+                                               System.out.println(selectId);
+                                               String type ="autre";
+
+                                               if (selectId != -1){
+                                               radioButton = (RadioButton) getView().findViewById(selectId);
+
+                                               type = (String) radioButton.getText();}
+
+
+
+                                               String date = dateEvent.getText().toString().trim();
+
+
+                                               if (TextUtils.isEmpty(date)) {
+                                                   Toast.makeText(getActivity(), "Enter une date", Toast.LENGTH_SHORT).show();
+                                                   return;
+                                               }
+
+                                               String debut = debutEvent.getText().toString().trim();
+                                               if (TextUtils.isEmpty(debut)) {
+                                                   Toast.makeText(getActivity(), "Enter une heure de début", Toast.LENGTH_SHORT).show();
+                                                   return;
+                                               }
+
+
+                                               String fin = finEvent.getText().toString().trim();
+                                               if (TextUtils.isEmpty(fin)) {
+                                                   Toast.makeText(getActivity(), "Enter une heure de fin", Toast.LENGTH_SHORT).show();
+                                                   return;
+                                               }
+
+                                               if (TextUtils.isEmpty(descriptionEvent)) {
+                                                   Toast.makeText(getActivity(), "Enter une description", Toast.LENGTH_SHORT).show();
+                                                   return;
+                                               }
+
+                                               Event event = new Event(lat, longi, nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
+                                               if(uriEvent != null){
+                                                   event.setUriEvent(uriEvent.toString());
+                                               }
+                                               mDatabase.push().setValue(event);
+
                                                Toast.makeText(getActivity(),"L'évenement a bien été crée !",Toast.LENGTH_SHORT).show();
                                                mMapFragment = MapFragment.newInstance();
                                            }
@@ -206,33 +264,18 @@ public class FormulaireEventFragment extends Fragment {
                 progressBar.setVisibility(View.INVISIBLE);
             }
             else {
-                String addressName = "";
-                for(int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                     addressName += "  " + address.getAddressLine(i);
+                    lat = address.getLatitude();
+                    longi= address.getLongitude();
                 }
                 progressBar.setVisibility(View.INVISIBLE);
-
-                String nameEvent = etNameEvent.getText().toString();
-                String descriptionEvent = etDescription.getText().toString();
-
-                String type = null;
-                int selectId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) getView().findViewById(selectId);
-                type = (String) radioButton.getText();
+            }}
 
 
-                String date = dateEvent.getText().toString();
-                String debut = debutEvent.getText().toString();
-                String fin = finEvent.getText().toString();
 
-                Event event = new Event(address.getLatitude(), address.getLongitude(), nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
-                if(uriEvent != null){
-                    event.setUriEvent(uriEvent.toString());
-                }
-                mDatabase.push().setValue(event);
 
-            }
-        }
+
     }
 
 
