@@ -1,6 +1,8 @@
 package com.example.benjamin.mapmove;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -15,11 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
@@ -38,8 +42,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import static android.app.Activity.RESULT_OK;
 import static com.android.volley.VolleyLog.TAG;
@@ -112,6 +119,59 @@ public class FormulaireEventFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("events");
 
+        dateEvent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        debutEvent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        debutEvent.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+        finEvent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        finEvent.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
 
 
         ibSelectImage.setOnClickListener(new View.OnClickListener() {
@@ -128,18 +188,13 @@ public class FormulaireEventFragment extends Fragment {
         bCreerEvent.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
-                                              CreateEvent createevent = (CreateEvent) new CreateEvent();
-                                               createevent.execute();
-
                                                try {
-                                                   Thread.sleep(50000);
+                                                   Address str_result= new CreateEvent().execute().get();
                                                } catch (InterruptedException e) {
                                                    e.printStackTrace();
+                                               } catch (ExecutionException e) {
+                                                   e.printStackTrace();
                                                }
-
-                                               System.out.println("adress" +addressName);
-                                               System.out.println("lat" + lat);
-                                               System.out.println("lonig" + longi);
 
 
                                                String nameEvent = etNameEvent.getText().toString().trim();
@@ -150,6 +205,10 @@ public class FormulaireEventFragment extends Fragment {
 
                                                String descriptionEvent = etDescription.getText().toString().trim();
 
+
+                                               System.out.println("adress" +addressName);
+                                               System.out.println("lat" + lat);
+                                               System.out.println("lonig" + longi);
 
 
                                                int selectId = radioGroup.getCheckedRadioButtonId();
@@ -189,11 +248,11 @@ public class FormulaireEventFragment extends Fragment {
                                                    return;
                                                }
 
-                                          /*     Event event = new Event(lat, longi, nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
+                                            Event event = new Event(lat, longi, nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
                                                if(uriEvent != null){
                                                    event.setUriEvent(uriEvent.toString());
                                                }
-                                               mDatabase.push().setValue(event);*/
+                                               mDatabase.push().setValue(event);
 
                                                Toast.makeText(getActivity(),"L'évenement a bien été crée !",Toast.LENGTH_SHORT).show();
                                                mMapFragment = MapFragment.newInstance();
@@ -202,6 +261,31 @@ public class FormulaireEventFragment extends Fragment {
         );
 
         return view;
+    }
+
+    Calendar myCalendar = Calendar.getInstance();
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+
+    };
+
+
+    private void updateLabel() {
+
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        dateEvent.setText(sdf.format(myCalendar.getTime()));
     }
 
     @Override
@@ -265,21 +349,12 @@ public class FormulaireEventFragment extends Fragment {
             }
 
 
-            if(addresses != null && addresses.size() > 0)
-                return addresses.get(0);
-
-            return null;
-        }
-
-        protected void onPostExecute(Address address) {
-            if(address == null) {
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-            else {
-                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    addressName += "" + address.getAddressLine(i);
-                    lat = address.getLatitude();
-                    longi= address.getLongitude();
+            if(addresses != null && addresses.size() > 0) {
+                Address a = addresses.get(0);
+                for (int i = 0; i < a.getMaxAddressLineIndex(); i++) {
+                    addressName += " " + a.getAddressLine(i);
+                    lat = a.getLatitude();
+                    longi= a.getLongitude();
                 }
 
                 System.out.println(addressName);
@@ -287,7 +362,13 @@ public class FormulaireEventFragment extends Fragment {
                 System.out.println(longi);
 
                 progressBar.setVisibility(View.INVISIBLE);
-            }}
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(Address address) {
+            }
 
 
 
