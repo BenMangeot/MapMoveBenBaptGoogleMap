@@ -45,7 +45,11 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".EventActivity" />
-        <activity android:name=".RegisterProActivity"></activity>
+        <activity android:name=".RegisterProActivity" />
+        <activity
+            android:name=".EventModifActivity"
+            android:label="@string/title_activity_event_modif"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
