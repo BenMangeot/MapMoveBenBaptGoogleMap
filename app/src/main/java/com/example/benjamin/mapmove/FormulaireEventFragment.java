@@ -128,9 +128,14 @@ public class FormulaireEventFragment extends Fragment {
         bCreerEvent.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
-                                              CreateEvent createevent = (CreateEvent) new CreateEvent().execute();
-                                               createevent.doInBackground();
+                                              CreateEvent createevent = (CreateEvent) new CreateEvent();
+                                               createevent.execute();
 
+                                               try {
+                                                   Thread.sleep(50000);
+                                               } catch (InterruptedException e) {
+                                                   e.printStackTrace();
+                                               }
 
                                                System.out.println("adress" +addressName);
                                                System.out.println("lat" + lat);
