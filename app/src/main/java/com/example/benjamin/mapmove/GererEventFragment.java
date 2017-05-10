@@ -60,7 +60,6 @@ public class GererEventFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_gerer_event, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -80,10 +79,6 @@ public class GererEventFragment extends Fragment {
             }
         });
         /* --FIN--RECUPERATION DU USER CO */
-
-        // [START create_database_reference]
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("events");
-        // [END create_database_reference]
 
 
 
@@ -112,7 +107,7 @@ public class GererEventFragment extends Fragment {
                 Event.class,
                 R.layout.list_row_gerer,
                 GererEventFragment.ListViewHolder.class,
-                mDatabase
+                mDatabase.child("events")
         ) {
             @Override
             protected void populateViewHolder(GererEventFragment.ListViewHolder viewHolder, Event mEvent, int position) {

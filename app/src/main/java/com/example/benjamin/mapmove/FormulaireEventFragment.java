@@ -66,9 +66,9 @@ public class FormulaireEventFragment extends Fragment {
     private EditText dateEvent;
     private EditText debutEvent;
     private EditText finEvent;
-    private String addressName = "";
-    private Double lat;
-    private Double longi;
+    public String addressName = "";
+    public Double lat = 0.0;
+    public Double longi = 0.0;
 
 
     @Nullable
@@ -128,7 +128,14 @@ public class FormulaireEventFragment extends Fragment {
         bCreerEvent.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
-                                               new CreateEvent().execute();
+                                              CreateEvent createevent = (CreateEvent) new CreateEvent().execute();
+                                               createevent.doInBackground();
+
+
+                                               System.out.println("adress" +addressName);
+                                               System.out.println("lat" + lat);
+                                               System.out.println("lonig" + longi);
+
 
                                                String nameEvent = etNameEvent.getText().toString().trim();
                                                if (TextUtils.isEmpty(nameEvent)) {
@@ -177,11 +184,11 @@ public class FormulaireEventFragment extends Fragment {
                                                    return;
                                                }
 
-                                               Event event = new Event(lat, longi, nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
+                                          /*     Event event = new Event(lat, longi, nameEvent, descriptionEvent, addressName,type, date, mUser.getUsername(), debut, fin);
                                                if(uriEvent != null){
                                                    event.setUriEvent(uriEvent.toString());
                                                }
-                                               mDatabase.push().setValue(event);
+                                               mDatabase.push().setValue(event);*/
 
                                                Toast.makeText(getActivity(),"L'évenement a bien été crée !",Toast.LENGTH_SHORT).show();
                                                mMapFragment = MapFragment.newInstance();
@@ -265,10 +272,15 @@ public class FormulaireEventFragment extends Fragment {
             }
             else {
                 for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-                    addressName += "  " + address.getAddressLine(i);
+                    addressName += "" + address.getAddressLine(i);
                     lat = address.getLatitude();
                     longi= address.getLongitude();
                 }
+
+                System.out.println(addressName);
+                System.out.println(lat);
+                System.out.println(longi);
+
                 progressBar.setVisibility(View.INVISIBLE);
             }}
 
