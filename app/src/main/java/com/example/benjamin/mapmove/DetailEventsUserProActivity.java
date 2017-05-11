@@ -108,7 +108,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                 }
 
 
-                if (h.compareTo(u)>=0 && model.getUserPro() == userProName){
+                if (h.compareTo(u)>=0 && model.getUserPro().equals(userProName)){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
                     viewHolder.setDebut(model.getDebut());
