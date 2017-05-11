@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
     private static Context mContext;
+    String userProName;
 
 
     @Override
@@ -40,12 +42,16 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_events_user_pro);
 
-        String userProName = (String) getIntent().getExtras().getSerializable("my_user");
+        userProName = (String) getIntent().getExtras().getSerializable("my_user");
 
          /* [START init toolbar ] */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Evenements à venir de "+userProName);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled (true);
+        /* [END init toolbar ] */
+
         /* [END init toolbar ] */
 
         // [START create_database_reference]
@@ -102,7 +108,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                 }
 
 
-                if (h.compareTo(u)>=0){
+                if (h.compareTo(u)>=0 && model.getUserPro() == userProName){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
                     viewHolder.setDebut(model.getDebut());
@@ -180,5 +186,21 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
 
             );
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
