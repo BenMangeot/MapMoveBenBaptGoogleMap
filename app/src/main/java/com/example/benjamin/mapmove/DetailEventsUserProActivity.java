@@ -116,6 +116,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                     viewHolder.setFin(model.getFin());
                     viewHolder.setOrga(model.getUserPro());
                     viewHolder.setClickToDetail(model);
+                    viewHolder.setDate(model.getDate());
 
                 }else { viewHolder.rien();
                 }
@@ -162,7 +163,13 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
 
         public void setOrga(String orga){
             TextView list_orga = (TextView) mView.findViewById(R.id.nomOrga);
-            list_orga.setText("Evenement créé par : " + orga);
+            list_orga.setText("Evènement créé par : " + orga);
+
+        }
+
+        public void setDate(String date){
+            TextView list_orga = (TextView) mView.findViewById(R.id.date);
+            list_orga.setText("Date de lévènement : " + date);
 
         }
 

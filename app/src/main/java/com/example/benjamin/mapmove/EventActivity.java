@@ -23,7 +23,7 @@ public class EventActivity extends AppCompatActivity {
 
     private static final String DESCRIBABLE_KEY = "describable_key";
     private Event mEvent;
-    private TextView tvNameEvent, tvDescription, tvCreator, hdebut, hfin, tvAdress;
+    private TextView tvNameEvent, tvDescription, tvCreator, hdebut, hfin, tvAdress, date;
     private ImageView ivEvent;
 
 
@@ -48,6 +48,7 @@ public class EventActivity extends AppCompatActivity {
         tvDescription = (TextView) findViewById(R.id.tvDescription);
         tvDescription.setText(mEvent.getDescriptionEvent());
         tvAdress = (TextView) findViewById(R.id.tvAddress);
+        date = (TextView) findViewById(R.id.date);
 
         String str_text = "<a href=http://maps.google.com/maps?q="+mEvent.getLat()+","+mEvent.getLg()+">" + mEvent.getAdress() +"</a>";
         tvAdress.setMovementMethod(LinkMovementMethod.getInstance());
@@ -59,6 +60,7 @@ public class EventActivity extends AppCompatActivity {
         hdebut.setText("débute à : " + mEvent.getDebut());
         hfin = (TextView) findViewById(R.id.fin);
         hfin.setText("fini à : " + mEvent.getFin());
+        date.setText("l'évènement aura lieu le : " + mEvent.getDate());
 
 
         Picasso.with(this).load(mEvent.getUriEvent().toString()).fit().centerCrop().into(ivEvent);
