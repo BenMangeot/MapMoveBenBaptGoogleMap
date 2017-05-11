@@ -4,6 +4,9 @@ package com.example.benjamin.mapmove;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +23,7 @@ public class EventActivity extends AppCompatActivity {
 
     private static final String DESCRIBABLE_KEY = "describable_key";
     private Event mEvent;
-    private TextView tvNameEvent, tvDescription, tvCreator, hdebut, hfin;
+    private TextView tvNameEvent, tvDescription, tvCreator, hdebut, hfin, tvAdress;
     private ImageView ivEvent;
 
 
@@ -52,8 +55,12 @@ public class EventActivity extends AppCompatActivity {
         tvNameEvent.setText(mEvent.getNameEvent());
         tvDescription = (TextView) findViewById(R.id.tvDescription);
         tvDescription.setText(mEvent.getDescriptionEvent());
-        tvDescription = (TextView) findViewById(R.id.tvAddress);
-        tvDescription.setText(mEvent.getAdress());
+        tvAdress = (TextView) findViewById(R.id.tvAddress);
+
+        String str_text = "<a href=http://maps.google.com/maps?q="+mEvent.getLat()+","+mEvent.getLg()+">" + mEvent.getAdress() +"</a>";
+        tvAdress.setMovementMethod(LinkMovementMethod.getInstance());
+        tvAdress.setText(Html.fromHtml(str_text));
+
         tvCreator = (TextView) findViewById(R.id.tvCreatore);
         tvCreator.setText("Cet événement a été créé par "+mEvent.getUserPro());
         hdebut = (TextView) findViewById(R.id.debut);
