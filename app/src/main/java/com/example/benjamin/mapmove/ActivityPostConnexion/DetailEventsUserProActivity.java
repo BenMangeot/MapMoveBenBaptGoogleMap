@@ -47,7 +47,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
 
          /* [START init toolbar ] */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Evenements à venir de "+userProName);
+        toolbar.setTitle("Evenements by "+userProName);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled (true);
