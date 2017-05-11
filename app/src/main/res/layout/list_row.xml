@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:visibility="visible"
+        android:id="@+id/ll"
         android:orientation="vertical">
 
 
@@ -74,7 +75,7 @@
                 <View
                     android:id="@+id/SplitLine_hor1"
                     android:layout_width="match_parent"
-                    android:layout_height= "2dp"
+                    android:layout_height= "1dp"
                     android:visibility="visible"
                     android:background="@color/white" />
 
