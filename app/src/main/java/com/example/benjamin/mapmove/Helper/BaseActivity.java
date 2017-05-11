@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.Helper;
 
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;

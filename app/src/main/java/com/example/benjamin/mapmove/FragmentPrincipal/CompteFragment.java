@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.FragmentPrincipal;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.User;
+import com.example.benjamin.mapmove.R;
+import com.example.benjamin.mapmove.ActivityPostConnexion.SettingsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

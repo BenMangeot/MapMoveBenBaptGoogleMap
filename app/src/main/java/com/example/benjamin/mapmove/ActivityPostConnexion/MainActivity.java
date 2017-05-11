@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.ActivityPostConnexion;
 
 
 import android.content.Intent;
@@ -15,7 +15,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.benjamin.mapmove.FragmentPrincipal.CompteFragment;
+import com.example.benjamin.mapmove.FragmentPrincipal.FormulaireEventFragment;
+import com.example.benjamin.mapmove.FragmentPrincipal.GererEventFragment;
 import com.example.benjamin.mapmove.Instance.User;
+import com.example.benjamin.mapmove.ActivityPreConnexion.LoginActivity;
+import com.example.benjamin.mapmove.R;
+import com.example.benjamin.mapmove.FragmentPrincipal.ResearchProFragment;
+import com.example.benjamin.mapmove.FragmentPrincipal.Swipe.TabFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

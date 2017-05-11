@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.FragmentPrincipal;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.benjamin.mapmove.Instance.Event;
 import com.example.benjamin.mapmove.Instance.User;
+import com.example.benjamin.mapmove.R;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.ActivityPreConnexion;
 
 /**
  * Created by Benjamin on 10/02/2017.
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.benjamin.mapmove.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

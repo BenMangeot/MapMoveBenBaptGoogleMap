@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.FragmentPrincipal.Swipe;
 
 
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.benjamin.mapmove.R;
 
 
 public class TabFragment extends Fragment {

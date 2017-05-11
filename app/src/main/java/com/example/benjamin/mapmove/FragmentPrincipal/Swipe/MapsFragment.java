@@ -1,4 +1,4 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.FragmentPrincipal.Swipe;
 
 /**
  * Created by Benjamin on 24/04/2017.
@@ -10,11 +10,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.benjamin.mapmove.ActivityPostConnexion.EventActivity;
 import com.example.benjamin.mapmove.Instance.Event;
 import com.example.benjamin.mapmove.MapsHelper.MyInfoWindowMarker;
+import com.example.benjamin.mapmove.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -183,7 +184,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                             Intent intent = new Intent(getActivity(), EventActivity.class);
                             intent.putExtra("my_event", eventToDetail);
                             startActivity(intent);
-                            getActivity().finish();
+
 
                         }
                     });

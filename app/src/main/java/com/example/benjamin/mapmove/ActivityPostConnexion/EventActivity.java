@@ -1,21 +1,16 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.ActivityPostConnexion;
 
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.example.benjamin.mapmove.Instance.Event;
+import com.example.benjamin.mapmove.R;
 import com.squareup.picasso.Picasso;
 
 public class EventActivity extends AppCompatActivity {

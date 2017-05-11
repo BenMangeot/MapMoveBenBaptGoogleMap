@@ -1,8 +1,6 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.FragmentPrincipal;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -14,9 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.benjamin.mapmove.ActivityPostConnexion.DetailEventsUserProActivity;
 import com.example.benjamin.mapmove.Instance.User;
+import com.example.benjamin.mapmove.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -32,7 +32,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".ActivityPreConnexion.LoginActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,27 +41,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityPostConnexion.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ActivityPreConnexion.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".ActivityPreConnexion.ResetPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ActivityPostConnexion.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EventActivity"
+            android:name=".ActivityPostConnexion.EventActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterProActivity"
+            android:name=".ActivityPreConnexion.RegisterProActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EventModifActivity"
+            android:name=".ActivityPostConnexion.EventModifActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".DetailEventsUserProActivity"></activity>
+        <activity android:name=".ActivityPostConnexion.DetailEventsUserProActivity"></activity>
     </application>
 
 </manifest>

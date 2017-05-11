@@ -1,29 +1,30 @@
-package com.example.benjamin.mapmove;
+package com.example.benjamin.mapmove.ActivityPostConnexion;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.benjamin.mapmove.Instance.Event;
+import com.example.benjamin.mapmove.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
+public class DetailEventsUserProActivity extends AppCompatActivity {
 
-public class ListFragment extends Fragment {
 
     private static final String TAG = "PostListFragment";
 
@@ -33,53 +34,57 @@ public class ListFragment extends Fragment {
 
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
+    private static Context mContext;
+    String userProName;
 
-    public ListFragment() {}
 
-
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail_events_user_pro);
 
-        super.onCreateView(inflater, container, savedInstanceState);
+        userProName = (String) getIntent().getExtras().getSerializable("my_user");
 
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+         /* [START init toolbar ] */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Evenements à venir de "+userProName);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled (true);
+        /* [END init toolbar ] */
+
+        /* [END init toolbar ] */
 
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference().child("events");
         // [END create_database_reference]
 
-        mRecycler = (RecyclerView) rootView.findViewById(R.id.list);
+        mRecycler = (RecyclerView) findViewById(R.id.list);
         mRecycler.setHasFixedSize(true);
-        return rootView;
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
         // Set up Layout Manager, reverse layout
-        mManager = new LinearLayoutManager(getActivity());
+        mManager = new LinearLayoutManager(this);
         mManager.setReverseLayout(true);
         mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
+
+
     }
+
 
 
     @Override
     public void onStart() {
         super.onStart();
 
-        final FirebaseRecyclerAdapter<Event,ListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, ListViewHolder>(
+        final FirebaseRecyclerAdapter<Event,DetailEventsUserProActivity.ListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, DetailEventsUserProActivity.ListViewHolder>(
                 Event.class,
-                R.layout.list_row,
-                ListViewHolder.class,
+                R.layout.list_rowb,
+                DetailEventsUserProActivity.ListViewHolder.class,
                 mDatabase
         ) {
             @Override
-            protected void populateViewHolder(ListViewHolder viewHolder, Event model, int position) {
+            protected void populateViewHolder(DetailEventsUserProActivity.ListViewHolder viewHolder, Event model, int position) {
 
                 long cdate = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -88,18 +93,35 @@ public class ListFragment extends Fragment {
                 dataString = dataString.intern();
 
                 String date = model.getDate().intern();
-                if (date == dataString){
+
+                Date h = null;
+                try {
+                    h = sdf.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Date u = null;
+                try {
+                    u = sdf.parse(dataString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                if (h.compareTo(u)>=0 && model.getUserPro().equals(userProName)){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
-                    viewHolder.setImage(getContext(), model.getUriEvent());
                     viewHolder.setDebut(model.getDebut());
+                    viewHolder.setImage(getApplicationContext(), model.getUriEvent());
                     viewHolder.setFin(model.getFin());
                     viewHolder.setOrga(model.getUserPro());
                     viewHolder.setClickToDetail(model);
+                    viewHolder.setDate(model.getDate());
 
-            }else { viewHolder.rien();
+                }else { viewHolder.rien();
                 }
-             }
+            }
         };
 
         mRecycler.setAdapter(firebaseRecyclerAdapter);
@@ -108,26 +130,23 @@ public class ListFragment extends Fragment {
     private static class ListViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        View bview;
 
         public ListViewHolder(View itemView) {
             super(itemView);
-            mView = itemView.findViewById(R.id.root);
-            bview = itemView.findViewById(R.id.ll);
-
+            mView = itemView;
         }
 
         public void setTitle(String title){
-                TextView list_title = (TextView) mView.findViewById(R.id.nameEvent);
-                list_title.setText(title);
-            }
+            TextView list_title = (TextView) mView.findViewById(R.id.nameEvent);
+            list_title.setText(title);
+        }
 
         public void setAdress(String address){
             TextView list_address = (TextView) mView.findViewById(R.id.adress);
             list_address.setText(address);
         }
 
-        public void setImage(Context ctx,String image){
+        public void setImage(Context ctx, String image){
             ImageView list_image = (ImageView) mView.findViewById(R.id.uriEvent);
             Picasso.with(ctx).load(image).fit().centerCrop().into(list_image);
 
@@ -145,14 +164,18 @@ public class ListFragment extends Fragment {
 
         public void setOrga(String orga){
             TextView list_orga = (TextView) mView.findViewById(R.id.nomOrga);
-            list_orga.setText("Evenement créé par : " + orga);
+            list_orga.setText("Evènement créé par : " + orga);
+
+        }
+
+        public void setDate(String date){
+            TextView list_orga = (TextView) mView.findViewById(R.id.date);
+            list_orga.setText("Date de lévènement : " + date);
 
         }
 
         public void rien(){
             mView.setVisibility(View.GONE);
-            bview.setVisibility(View.GONE);
-
             RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
             param.height = 0;
             param.width = 0;
@@ -171,5 +194,21 @@ public class ListFragment extends Fragment {
 
             );
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
