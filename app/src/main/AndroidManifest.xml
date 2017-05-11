@@ -61,7 +61,6 @@
         <activity
             android:name=".EventModifActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ResearchFriendActivity" />
         <activity android:name=".DetailEventsUserProActivity"></activity>
     </application>
 

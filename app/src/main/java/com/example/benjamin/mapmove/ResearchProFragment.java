@@ -75,7 +75,6 @@ public class ResearchProFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DetailEventsUserProActivity.class);
                 intent.putExtra("my_user", value);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
 

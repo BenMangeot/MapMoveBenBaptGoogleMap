@@ -46,18 +46,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         /* INITIALISATION DES XML "CONSTANTS" */
-        // Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+            // Toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //Navigation view avec la modif si le user est un compte pro
+            //Navigation view avec la modif si le user est un compte pro
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         /* --FIN-- INITIALISATION DES XML "CONSTANTS" */
+
 
         /* INITIALISATION DU FRAGMENT PRINCIPALE PAR L'INTERFACE CARTE */
         setFragToMaps();
