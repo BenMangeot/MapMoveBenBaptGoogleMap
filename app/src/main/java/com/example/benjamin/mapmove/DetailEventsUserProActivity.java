@@ -78,7 +78,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
 
         final FirebaseRecyclerAdapter<Event,DetailEventsUserProActivity.ListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, DetailEventsUserProActivity.ListViewHolder>(
                 Event.class,
-                R.layout.list_row,
+                R.layout.list_rowb,
                 DetailEventsUserProActivity.ListViewHolder.class,
                 mDatabase
         ) {
