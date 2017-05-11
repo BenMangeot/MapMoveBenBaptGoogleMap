@@ -112,10 +112,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                 if (h.compareTo(u)>=0 && model.getUserPro().equals(userProName)){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
-                    viewHolder.setDebut(model.getDebut());
                     viewHolder.setImage(getApplicationContext(), model.getUriEvent());
-                    viewHolder.setFin(model.getFin());
-                    viewHolder.setOrga(model.getUserPro());
                     viewHolder.setClickToDetail(model);
                     viewHolder.setDate(model.getDate());
 
@@ -170,7 +167,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
 
         public void setDate(String date){
             TextView list_orga = (TextView) mView.findViewById(R.id.date);
-            list_orga.setText("Date de lévènement : " + date);
+            list_orga.setText(date);
 
         }
 

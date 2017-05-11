@@ -53,7 +53,7 @@ public class EventActivity extends AppCompatActivity {
 
 
         tvCreator = (TextView) findViewById(R.id.tvCreatore);
-        tvCreator.setText("Cet événement a été créé par "+mEvent.getUserPro());
+        tvCreator.setText("Cet évènement a été créé par "+mEvent.getUserPro());
         hdebut = (TextView) findViewById(R.id.debut);
         hdebut.setText("débute à : " + mEvent.getDebut());
         hfin = (TextView) findViewById(R.id.fin);

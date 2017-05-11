@@ -8,33 +8,31 @@
     android:id="@+id/root">
 
     <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:visibility="visible"
-        android:id="@+id/ll"
-        android:orientation="vertical">
-
-
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/uriEvent"
                 android:layout_width="105dp"
-                android:visibility="visible"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/nomOrga"
@@ -42,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:padding="3dp"
                     android:textAlignment="textEnd"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="10dp"
                     android:textStyle="bold"
                     android:visibility="visible"
@@ -55,11 +53,10 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textAlignment="center"
-                    android:textColor="#fff"
-                    android:textColorLink="@color/common_google_signin_btn_text_light_pressed"
+                    android:textColor="#000"
                     android:textSize="20dp"
-                    android:visibility="visible"
                     android:textStyle="bold"
+                    android:visibility="visible"
                     tools:text="title" />
 
                 <TextView
@@ -68,24 +65,26 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textAlignment="center"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:visibility="visible"
                     tools:text="address" />
 
                 <View
                     android:id="@+id/SplitLine_hor1"
                     android:layout_width="match_parent"
-                    android:layout_height= "1dp"
-                    android:visibility="visible"
-                    android:background="@color/white" />
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/black"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="visible"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/debut"
@@ -93,9 +92,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textColor="#fff"
-                        android:visibility="visible"
-                        android:textSize="12sp" />
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
 
 
                     <TextView
@@ -105,9 +104,9 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:textAlignment="center"
-                        android:visibility="visible"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:visibility="visible" />
                 </LinearLayout>
 
             </LinearLayout>
