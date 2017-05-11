@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -90,7 +89,23 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                 dataString = dataString.intern();
 
                 String date = model.getDate().intern();
-                if (date == dataString && model.getUserPro()== userProName){
+
+                Date h = null;
+                try {
+                    h = sdf.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Date u = null;
+                try {
+                    u = sdf.parse(dataString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                if (h.compareTo(u)>=0 && model.getUserPro()){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
                     viewHolder.setDebut(model.getDebut());

@@ -87,9 +87,9 @@ public class TabFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Map event";
+                    return "Carte des évènements";
                 case 1 :
-                    return "List event";
+                    return "Liste des évènements";
             }
             return null;
         }
