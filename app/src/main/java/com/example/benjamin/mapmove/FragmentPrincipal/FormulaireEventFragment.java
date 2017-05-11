@@ -357,7 +357,7 @@ public class FormulaireEventFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
+
         }
 
         @Override
@@ -386,7 +386,6 @@ public class FormulaireEventFragment extends Fragment {
                 System.out.println(lat);
                 System.out.println(longi);
 
-                progressBar.setVisibility(View.INVISIBLE);
             }
 
             return null;
