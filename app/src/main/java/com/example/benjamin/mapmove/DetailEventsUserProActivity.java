@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DetailEventsUserProActivity extends AppCompatActivity {
 
@@ -84,7 +86,23 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                 dataString = dataString.intern();
 
                 String date = model.getDate().intern();
-                if (date == dataString){
+
+                Date h = null;
+                try {
+                    h = sdf.parse(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Date u = null;
+                try {
+                    u = sdf.parse(dataString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+                if (h.compareTo(u)>=0){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
                     viewHolder.setDebut(model.getDebut());
