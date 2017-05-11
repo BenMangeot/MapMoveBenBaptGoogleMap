@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,7 +100,16 @@ public class CompteFragment extends Fragment {
                 // Modification des TextView avec les Valeurs */
                 nameUser.setText(mUser.getUsername());
                 mailUser.setText(mUser.getEmail());
-                Picasso.with(getContext()).load(mUser.getUriUser()).into(uriUser);
+                String uriUserSansImage = "https://firebasestorage.googleapis.com/v0/b/project--7669949180488281577.appspot.com/o/PhotosUser%2Flogommbon.jpg?alt=media&token=9b96b452-f67d-45f9-993a-740617e5915f";
+                String uriRemplacement ="https://firebasestorage.googleapis.com/v0/b/project--7669949180488281577.appspot.com/o/Photos%2Fboloss.png?alt=media&token=2f36841a-12b3-45d3-a7dd-faa46c5b3945";
+                System.out.println(mUser.getUriUser());
+                System.out.println(mUser.getUriUser().intern() == uriUserSansImage.intern());
+
+                if(mUser.getUriUser().intern() == uriUserSansImage.intern()){
+                    Picasso.with(getContext()).load(uriRemplacement).into(uriUser);
+                } else{
+                    Picasso.with(getContext()).load(mUser.getUriUser()).into(uriUser);
+                }
             }
 
             @Override
