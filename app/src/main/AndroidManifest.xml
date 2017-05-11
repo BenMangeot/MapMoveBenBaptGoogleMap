@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -40,13 +40,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ResetPasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SettingsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".EventActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterProActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".EventModifActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterProActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EventModifActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ResearchFriendActivity" />
+        <activity android:name=".DetailEventsUserProActivity"></activity>
     </application>
 
 </manifest>

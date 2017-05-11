@@ -2,8 +2,6 @@ package com.example.benjamin.mapmove;
 
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -135,11 +133,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             setFragToFormEvent();
         } else if (id == R.id.nav_gerer_event) {
             setFragToGererEvent();
+        }else if (id == R.id.nav_see_pro) {
+            setFragToSeePro();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setFragToSeePro() {
+        ResearchProFragment fragment = new ResearchProFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+          /*Intent intent = new Intent(this, ResearchFriendActivity.class);
+        startActivity(intent);
+        finish();*/
     }
 
     private void signOut() {
@@ -163,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+
+
     }
     
     private void setFragToFormEvent(){

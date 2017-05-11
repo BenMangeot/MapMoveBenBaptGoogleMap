@@ -183,6 +183,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback{
                             Intent intent = new Intent(getActivity(), EventActivity.class);
                             intent.putExtra("my_event", eventToDetail);
                             startActivity(intent);
+                            getActivity().finish();
+
                         }
                     });
                }
