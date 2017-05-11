@@ -14,8 +14,7 @@
         <ImageView
             android:id="@+id/uriEvent"
             android:layout_width="match_parent"
-            android:layout_height="207dp"
-            android:src="@mipmap/add_btn" />
+            android:layout_height="235dp" />
 
         <TextView
             android:id="@+id/nameEvent"
