@@ -134,8 +134,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/change_email"
-            android:background="@@android:color/white"
-            android:textColor="@color/input_login"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button
@@ -145,8 +145,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/change_password"
-            android:background="@@android:color/white"
-            android:textColor="@color/input_login"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button
@@ -156,8 +156,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/send_password_reset_email"
-            android:background="@@android:color/white"
-            android:textColor="@color/input_login"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button
@@ -167,8 +167,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/remove_user"
-            android:background="@@android:color/white"
-            android:textColor="@color/input_login"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button
