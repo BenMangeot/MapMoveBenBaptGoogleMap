@@ -32,7 +32,6 @@
             android:textColorLink="@color/common_google_signin_btn_text_light_pressed"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:textAllCaps="true"
             android:layout_marginTop="40dip"
             />
 
