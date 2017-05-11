@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.benjamin.mapmove.Instance.Event;
@@ -107,10 +108,13 @@ public class ListFragment extends Fragment {
     private static class ListViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
+        View bview;
 
         public ListViewHolder(View itemView) {
             super(itemView);
-            mView = itemView;
+            mView = itemView.findViewById(R.id.root);
+            bview = itemView.findViewById(R.id.ll);
+
         }
 
         public void setTitle(String title){
@@ -147,6 +151,8 @@ public class ListFragment extends Fragment {
 
         public void rien(){
             mView.setVisibility(View.GONE);
+            bview.setVisibility(View.GONE);
+
             RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
             param.height = 0;
             param.width = 0;
