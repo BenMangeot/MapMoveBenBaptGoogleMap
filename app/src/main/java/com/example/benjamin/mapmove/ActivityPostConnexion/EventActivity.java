@@ -1,6 +1,7 @@
 package com.example.benjamin.mapmove.ActivityPostConnexion;
 
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -45,9 +46,11 @@ public class EventActivity extends AppCompatActivity {
         tvAdress = (TextView) findViewById(R.id.tvAddress);
         date = (TextView) findViewById(R.id.date);
 
-        String str_text = "<a href=http://maps.google.com/maps?q="+mEvent.getLat()+","+mEvent.getLg()+">" + mEvent.getAdress() +"</a>";
+        String str_text = "<font color=\"#000\"><a href=http://maps.google.com/maps?q="+mEvent.getLat()+","+mEvent.getLg()+">" + mEvent.getAdress() +"</a></font>";
         tvAdress.setMovementMethod(LinkMovementMethod.getInstance());
         tvAdress.setText(Html.fromHtml(str_text));
+
+
 
         tvCreator = (TextView) findViewById(R.id.tvCreatore);
         tvCreator.setText("Cet événement a été créé par "+mEvent.getUserPro());
