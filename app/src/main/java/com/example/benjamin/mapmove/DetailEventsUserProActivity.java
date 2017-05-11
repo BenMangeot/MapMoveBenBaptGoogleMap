@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DetailEventsUserProActivity extends AppCompatActivity {
 
@@ -105,7 +108,7 @@ public class DetailEventsUserProActivity extends AppCompatActivity {
                 }
 
 
-                if (h.compareTo(u)>=0 && model.getUserPro()){
+                if (h.compareTo(u)>=0 && model.getUserPro() == userProName){
                     viewHolder.setTitle(model.getNameEvent());
                     viewHolder.setAdress(model.getAdress());
                     viewHolder.setDebut(model.getDebut());
